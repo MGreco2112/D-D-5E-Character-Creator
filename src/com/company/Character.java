@@ -22,7 +22,7 @@ public class Character {
     public String name;
     public String classLevel;
     ArrayList<String> spells = new ArrayList<>();
-    ArrayList<String> gear = new ArrayList<>();
+    ArrayList<Item> gear = new ArrayList<>();
     ArrayList<Integer> stats = new ArrayList<>();
 
     public Character(String name, String classLevel, int level, int str, int dex, int con, int intel, int wis, int cha,
@@ -57,11 +57,15 @@ public class Character {
     }
 
     public String addSpell(String spell) {
-        spells.add(spell);
-        return spell + " has been added.";
+        if (isArcane || isDivine) {
+            spells.add(spell);
+            return spell + " has been added.";
+        } else {
+            return name + " is not a caster.";
+        }
     }
 
-    public String addEquipment(String equipment) {
+    public String addEquipment(Item equipment) {
         gear.add(equipment);
         return equipment + " has been added";
     }
