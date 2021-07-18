@@ -26,6 +26,20 @@ public class Die {
         return showResult();
     }
 
+    public int roll(int numberOfDice, byte modifier) {
+        Random random = new Random();
+
+        faceUpValue = (numberOfDice * (random.nextInt(maxValue) + 1)) + modifier;
+        return showResult();
+    }
+
+    public int rollPlusModifier(byte modifier) {
+        Random random = new Random();
+
+        faceUpValue = (random.nextInt(maxValue) + 1) + modifier;
+        return showResult();
+    }
+
     public int showResult() {
         return faceUpValue;
     }
