@@ -71,6 +71,7 @@ public class Character {
     }
 
     public String toString() {
-        return name + " " + classLevel + " " + level + " " + stats + " " + gear + " " + spells;
+        return name + ": " + classLevel + " " + level + ", Ability Scores: " + stats + ", Equipment: " + gear + ", " +
+                "Spells: " + spells;
     }
 }

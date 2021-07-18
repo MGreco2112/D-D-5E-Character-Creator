@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Die {
@@ -42,5 +43,28 @@ public class Die {
 
     public int showResult() {
         return faceUpValue;
+    }
+
+    public static int rollStats() {
+        ArrayList<Integer> statArray = new ArrayList<>();
+
+        while (statArray.size() <= 3) {
+            Random random = new Random();
+
+            statArray.add(random.nextInt(6) + 1);
+        }
+
+
+        int min = statArray.get(0);
+
+        for (int i = 0; i < statArray.size(); i++) {
+            if (statArray.get(i) <= min) {
+                min = statArray.get(i);
+            }
+
+        }
+
+        statArray.remove(statArray.indexOf(min));
+        return statArray.get(0) + statArray.get(1) + statArray.get(2);
     }
 }

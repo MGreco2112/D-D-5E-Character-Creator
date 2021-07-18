@@ -11,7 +11,20 @@ public class Main {
         Die d4 = new Die(4,4);
         Die d2 = new Die(2,2);
 
-        Weapon longsword = new Weapon("Longsword", "Versatile (1d10)", 3, d8);
+        Weapon longsword = new Weapon("Longsword", "Versatile (1d10)", 3, 1, d8);
+
+//        System.out.println("Strength: " + Die.rollStats());
+//        System.out.println("Dexterity: " + Die.rollStats());
+//        System.out.println("Constitution: " + Die.rollStats());
+//        System.out.println("Intelligence: " + Die.rollStats());
+//        System.out.println("Wisdom: " + Die.rollStats());
+//        System.out.println("Charisma: " + Die.rollStats());
+
+        Character winter = new Character("Winter", "Bard", 1, Die.rollStats(), Die.rollStats(), Die.rollStats(), Die.rollStats()
+        , Die.rollStats(), Die.rollStats(), 8, 12, 30, 2, 0, true, false, true,
+                "Chaotic Neutral");
+
+        System.out.println(winter);
 
 
     }
