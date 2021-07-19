@@ -13,8 +13,8 @@ public class Main {
         Die d2 = new Die(2,2);
 
         Weapon dagger = new Weapon("Dagger", "Finesse, light, thrown (20/60)", 1, 1, d4);
-        Gear clothes = new Gear("Common Clothes", "Tunic, gray", 3);
-        Spell mage_hand = new Spell("Mage Hang", 0, "Conjuration", 1, 30, "V, S", 60);
+        Gear clothes = new Gear("Common Clothes", "Tunic; gray", 3);
+        Spell mage_hand = new Spell("Mage Hand", 0, "Conjuration", 1, 30, "V, S", 60);
 
 //        System.out.println("Strength: " + Die.rollStats());
 //        System.out.println("Dexterity: " + Die.rollStats());

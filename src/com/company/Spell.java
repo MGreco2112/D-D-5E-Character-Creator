@@ -20,7 +20,6 @@ public class Spell {
     }
 
     public String toString() {
-        return name + ": level " + level + " " + school + " spell. Casting Time: " + castingTime + " minutes, range: " + range + " feet, Components: " + components
-                + ", duration: " + duration + " minutes";
+        return name;
     }
 }

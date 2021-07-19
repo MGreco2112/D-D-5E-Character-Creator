@@ -71,6 +71,7 @@ public class Character {
     }
 
     public String toString() {
-        return name + ":\n" + classLevel + " " + level + "\nAbility Scores: " + stats + "\nEquipment: " + gear + "\nSpells: " + spells;
+        return name + ":\n" + classLevel + " Level: " + level + "\nAbility Scores: " + stats + "\nEquipment: " + gear +
+                "\nSpells: " + spells;
     }
 }
