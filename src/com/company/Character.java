@@ -91,6 +91,16 @@ public class Character {
 
     }
 
+    public void reloadWeapon(Weapon weapon, Gear ammo, int amount) {
+        if (weapon.takesAmmo) {
+            ammo.qty -= amount;
+            weapon.ammo += amount;
+            System.out.println(weapon.name + " now has " + weapon.ammo + " ammunition.");
+        } else {
+            System.out.println(weapon.name + " does not take ammunition.");
+        }
+    }
+
     public String toString() {
         return name + ":\n" + classLevel + " Level: " + level + "\nAbility Scores: " + stats + "\nEquipment: " + gear +
                 "\nSpells: " + spells;

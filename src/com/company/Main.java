@@ -12,7 +12,7 @@ public class Main {
         Die d4 = new Die(4,4);
         Die d2 = new Die(2,2);
 
-        Weapon dagger = new Weapon("Dagger", "Finesse, light, thrown (20/60)", 1, 1, d4);
+        Weapon dagger = new Weapon("Dagger", false, "Finesse, light, thrown (20/60)", 1, 1, d4);
         Gear clothes = new Gear("Common Clothes", "Tunic; gray", 3);
         Spell mage_hand = new Spell("Mage Hand", 0, "Conjuration", 1, 30, "V, S", 60);
 
