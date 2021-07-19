@@ -3,6 +3,7 @@ package com.company;
 import java.util.ArrayList;
 
 public class Character {
+    public Die d20 = new Die(20,20);
     public int level;
     public int str;
     public int dex;
@@ -24,6 +25,7 @@ public class Character {
     ArrayList<Spell> spells = new ArrayList<>();
     ArrayList<Item> gear = new ArrayList<>();
     ArrayList<Integer> stats = new ArrayList<>();
+    ArrayList<String> proficiencies = new ArrayList<>();
 
     public Character(String name, String classLevel, int level, int str, int dex, int con, int intel, int wis, int cha,
                      int hitPoints,
@@ -68,6 +70,25 @@ public class Character {
     public String addEquipment(Item equipment) {
         gear.add(equipment);
         return equipment + " has been added";
+    }
+
+    public String addProficiency(String proficiency) {
+        proficiencies.add(proficiency);
+        return proficiency + " has been added";
+    }
+
+    // Modify when creating Monster Class to add Target to Parameters
+    public void attack(Weapon weapon) {
+        if (gear.contains(weapon)) {
+            int attackRoll = d20.roll();
+                if (proficiencies.contains(weapon.name)) {
+                    attackRoll += profBonus;
+                }
+            System.out.println(attackRoll);
+        } else {
+            System.out.println("Weapon is not equipped!");
+        }
+
     }
 
     public String toString() {

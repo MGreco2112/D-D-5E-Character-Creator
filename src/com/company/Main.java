@@ -16,12 +16,6 @@ public class Main {
         Gear clothes = new Gear("Common Clothes", "Tunic; gray", 3);
         Spell mage_hand = new Spell("Mage Hand", 0, "Conjuration", 1, 30, "V, S", 60);
 
-//        System.out.println("Strength: " + Die.rollStats());
-//        System.out.println("Dexterity: " + Die.rollStats());
-//        System.out.println("Constitution: " + Die.rollStats());
-//        System.out.println("Intelligence: " + Die.rollStats());
-//        System.out.println("Wisdom: " + Die.rollStats());
-//        System.out.println("Charisma: " + Die.rollStats());
 
         Character winter = new Character("Winter", "Bard", 1, Die.rollStats(), Die.rollStats(), Die.rollStats(), Die.rollStats()
         , Die.rollStats(), Die.rollStats(), 8, 12, 30, 2, 0, true, false, true,
@@ -29,9 +23,12 @@ public class Main {
 
         winter.addEquipment(clothes);
         winter.addEquipment(dagger);
+        winter.addProficiency("Dagger");
         winter.addSpell(mage_hand);
 
         System.out.println(winter);
+
+        winter.attack(dagger);
 
 
     }
