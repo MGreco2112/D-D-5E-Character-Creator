@@ -67,4 +67,10 @@ public class Die {
         statArray.remove(statArray.indexOf(min));
         return statArray.get(0) + statArray.get(1) + statArray.get(2);
     }
+
+    public String toString() {
+        return "d" + numberOfSides;
+    }
+
+
 }

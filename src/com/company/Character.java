@@ -21,7 +21,7 @@ public class Character {
     public String alignment;
     public String name;
     public String classLevel;
-    ArrayList<String> spells = new ArrayList<>();
+    ArrayList<Spell> spells = new ArrayList<>();
     ArrayList<Item> gear = new ArrayList<>();
     ArrayList<Integer> stats = new ArrayList<>();
 
@@ -56,7 +56,7 @@ public class Character {
         this.alignment = alignment;
     }
 
-    public String addSpell(String spell) {
+    public String addSpell(Spell spell) {
         if (isArcane || isDivine) {
             spells.add(spell);
             return spell + " has been added.";
@@ -71,7 +71,6 @@ public class Character {
     }
 
     public String toString() {
-        return name + ": " + classLevel + " " + level + ", Ability Scores: " + stats + ", Equipment: " + gear + ", " +
-                "Spells: " + spells;
+        return name + ":\n" + classLevel + " " + level + "\nAbility Scores: " + stats + "\nEquipment: " + gear + "\nSpells: " + spells;
     }
 }

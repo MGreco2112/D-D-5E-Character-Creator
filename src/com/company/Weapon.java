@@ -12,4 +12,7 @@ public class Weapon extends Item{
     }
 
 
+    public String toString() {
+        return name + ": " + properties + ", weight: " + weight + " lbs. " + numberOfDice + damageCode;
+    }
 }

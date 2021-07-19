@@ -13,6 +13,10 @@ public class Item {
         this.isWeapon = false;
     }
 
+    public String toString() {
+        return name + ": " + properties + ", weight: " + weight + " lbs.";
+    }
+
 
 
 }
