@@ -24,6 +24,7 @@ public class Main {
 
         winter.addEquipment(clothes);
         winter.addEquipment(dagger);
+        winter.readyWeapon(dagger);
         winter.addProficiency("Dagger");
         winter.addSpell(mage_hand);
 
@@ -31,9 +32,8 @@ public class Main {
 
         Monster goblin = new Monster("Goblin", 5, 12, 2, club);
 
-        winter.attack(dagger, goblin);
-        goblin.attack(club, winter);
-        winter.attack(dagger, goblin);
+
+        Combat.round(winter, goblin);
 
 
 

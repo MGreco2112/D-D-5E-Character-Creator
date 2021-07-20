@@ -23,6 +23,7 @@ public class Character {
     public String alignment;
     public String name;
     public String classLevel;
+    public Weapon readiedWeapon;
     ArrayList<Spell> spells = new ArrayList<>();
     ArrayList<Item> gear = new ArrayList<>();
     ArrayList<Integer> stats = new ArrayList<>();
@@ -73,6 +74,10 @@ public class Character {
         return equipment + " has been added";
     }
 
+    public void readyWeapon(Weapon weapon) {
+        readiedWeapon = weapon;
+    }
+
     public String addProficiency(String proficiency) {
         proficiencies.add(proficiency);
         return proficiency + " has been added";
@@ -88,7 +93,7 @@ public class Character {
                 }
                 if (attackRoll >= enemy.armorClass) {
                     System.out.println("Hit!");
-                    int damageRoll = weapon.damageCode.roll() * weapon.numberOfDice;
+                    int damageRoll = (weapon.damageCode.roll() * weapon.numberOfDice);
                     enemy.hitPoints -= damageRoll;
                     System.out.println(damageRoll + " points of damage dealt to " + enemy.name);
                     enemy.checkStatus();

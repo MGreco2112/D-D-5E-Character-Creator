@@ -9,7 +9,7 @@ public class Monster {
     public int armorClass;
     public boolean isDead;
     public String name;
-    public Weapon attack;
+    public Weapon weapon;
     public ArrayList<Item> treasure = new ArrayList<>();
 
     public Monster(String name, int hitPoints, int armorClass, int attackBonus, Weapon attack) {
@@ -17,7 +17,7 @@ public class Monster {
         this.hitPoints = hitPoints;
         this.attackBonus = attackBonus;
         this.armorClass = armorClass;
-        this.attack = attack;
+        this.weapon = attack;
     }
 
     public void addTreasure(Item treasure) {
@@ -38,7 +38,7 @@ public class Monster {
         int attackRoll = d20.roll() + attackBonus;
         if (attackRoll >= target.armorClass) {
             System.out.println(name + " hits " + target.name + " with " + attack.name + "!");
-            int damageRoll = attack.damageCode.roll();
+            int damageRoll = (weapon.damageCode.roll() * weapon.numberOfDice);
             target.hitPoints -= damageRoll;
             System.out.println(target.name + " takes " + damageRoll + " points of damage!");
             target.checkStatus();
