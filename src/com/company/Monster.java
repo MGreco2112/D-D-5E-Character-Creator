@@ -6,15 +6,17 @@ public class Monster {
     public Die d20 = new Die(20,20);
     public int hitPoints;
     public int attackBonus;
+    public int armorClass;
+    public boolean isDead;
     public String name;
     public Weapon attack;
     public ArrayList<Item> treasure = new ArrayList<>();
-    public ArrayList<Weapon> weapons = new ArrayList<>();
 
-    public Monster(String name, int hitPoints, int attackBonus, Weapon attack) {
+    public Monster(String name, int hitPoints, int armorClass, int attackBonus, Weapon attack) {
         this.name = name;
         this.hitPoints = hitPoints;
         this.attackBonus = attackBonus;
+        this.armorClass = armorClass;
         this.attack = attack;
     }
 
@@ -23,18 +25,25 @@ public class Monster {
         System.out.println(treasure + " has been added.");
     }
 
-    public void addWeapon(Weapon attack) {
-        weapons.add(attack);
-        System.out.println(attack + " has been added.");
+
+    public void checkStatus() {
+        isDead = hitPoints <= 0;
+        if (isDead) {
+            System.out.println(name + " has been defeated!");
+        }
     }
 
-    // need to add target parameter and target AC
-    public void attack(Weapon attack) {
-        if (weapons.contains(attack)) {
-            int attackRoll = d20.roll() + attackBonus;
-            System.out.println(attackRoll);
+
+    public void attack(Weapon attack, Character target) {
+        int attackRoll = d20.roll() + attackBonus;
+        if (attackRoll >= target.armorClass) {
+            System.out.println(name + " hits " + target.name + " with " + attack.name + "!");
+            int damageRoll = attack.damageCode.roll();
+            target.hitPoints -= damageRoll;
+            System.out.println(target.name + " takes " + damageRoll + " points of damage!");
+            target.checkStatus();
         } else {
-            System.out.println("Weapon is not equipped.");
+            System.out.println(attack.name + " missed!");
         }
     }
 

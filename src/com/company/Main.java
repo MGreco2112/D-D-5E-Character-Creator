@@ -13,6 +13,7 @@ public class Main {
         Die d2 = new Die(2,2);
 
         Weapon dagger = new Weapon("Dagger", false, "Finesse, light, thrown (20/60)", 1, 1, d4);
+        Weapon club = new Weapon("Club", false, "Fight", 2, 1, d4);
         Gear clothes = new Gear("Common Clothes", "Tunic; gray", 3);
         Spell mage_hand = new Spell("Mage Hand", 0, "Conjuration", 1, 30, "V, S", 60);
 
@@ -28,7 +29,12 @@ public class Main {
 
         System.out.println(winter);
 
-        winter.attack(dagger);
+        Monster goblin = new Monster("Goblin", 5, 12, 2, club);
+
+        winter.attack(dagger, goblin);
+        goblin.attack(club, winter);
+        winter.attack(dagger, goblin);
+
 
 
     }

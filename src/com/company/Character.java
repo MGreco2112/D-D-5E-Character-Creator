@@ -19,6 +19,7 @@ public class Character {
     public boolean isArcane;
     public boolean isDivine;
     public boolean isRogue;
+    public boolean isDead;
     public String alignment;
     public String name;
     public String classLevel;
@@ -77,14 +78,24 @@ public class Character {
         return proficiency + " has been added";
     }
 
-    // Modify when creating Monster Class to add Target to Parameters
-    public void attack(Weapon weapon) {
+
+    public void attack(Weapon weapon, Monster enemy) {
         if (gear.contains(weapon)) {
             int attackRoll = d20.roll();
                 if (proficiencies.contains(weapon.name)) {
                     attackRoll += profBonus;
+                    System.out.println(attackRoll + " is rolled against " + enemy.name + "'s armor class.");
                 }
-            System.out.println(attackRoll);
+                if (attackRoll >= enemy.armorClass) {
+                    System.out.println("Hit!");
+                    int damageRoll = weapon.damageCode.roll() * weapon.numberOfDice;
+                    enemy.hitPoints -= damageRoll;
+                    System.out.println(damageRoll + " points of damage dealt to " + enemy.name);
+                    enemy.checkStatus();
+                } else {
+                    System.out.println("The attack did not hit!");
+                }
+
         } else {
             System.out.println("Weapon is not equipped!");
         }
@@ -98,6 +109,13 @@ public class Character {
             System.out.println(weapon.name + " now has " + weapon.ammo + " ammunition.");
         } else {
             System.out.println(weapon.name + " does not take ammunition.");
+        }
+    }
+
+    public void checkStatus() {
+        isDead = hitPoints <= 0;
+        if (isDead) {
+            System.out.println(name + " has died. Game over");
         }
     }
 
