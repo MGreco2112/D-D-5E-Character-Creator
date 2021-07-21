@@ -2,6 +2,7 @@ package com.company;
 
 import java.util.ArrayList;
 
+// TODO add unique String description field in constructor
 public class Monster {
     public Die d20 = new Die(20,20);
     public int hitPoints;

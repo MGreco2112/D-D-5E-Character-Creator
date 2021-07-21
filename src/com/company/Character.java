@@ -2,6 +2,8 @@ package com.company;
 
 import java.util.ArrayList;
 
+// TODO add skills section to work with prof bonus and ability modifiers, add spell system mechanics
+
 public class Character {
     public Die d20 = new Die(20,20);
     public int level;

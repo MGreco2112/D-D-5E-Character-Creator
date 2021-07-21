@@ -2,6 +2,7 @@ package com.company;
 
 public class Main {
 
+    // TODO add classes Dungeon, Room, Created Items, Created Monsters
     public static void main(String[] args) {
         Die dPercent = new Die(100, 100);
         Die d20 = new Die(20, 20);

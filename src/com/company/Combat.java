@@ -4,9 +4,7 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Combat {
-    /* Currently does not break in the right location. Goes to flee after combatant falls
-    */
-
+// TODO add cast spell and use item options to combat flow, possibly integrate multi-monster combat
 
 
     public static void round(Character player ,Monster encounter) {

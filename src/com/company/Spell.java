@@ -1,5 +1,6 @@
 package com.company;
 
+// TODO make another constructor for spells that cause damage
 public class Spell {
     public String name;
     public String school;
