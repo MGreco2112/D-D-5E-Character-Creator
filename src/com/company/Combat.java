@@ -48,9 +48,8 @@ public class Combat {
 
                 if (!player.isDead && !encounter.isDead) {
                     round(player, encounter);
-                } else {
-                    break;
                 }
+                break;
 
             case "r" :
                 System.out.println(player.name + " attempts to flee!");
@@ -61,13 +60,22 @@ public class Combat {
                     System.out.println("The attempt failed!");
                     int damageRoll = (encounter.weapon.damageCode.roll() * encounter.weapon.numberOfDice);
                     player.hitPoints -= damageRoll;
-                    System.out.println(player.name + " takes " + damageRoll + " points of damage\n" + player.name +
-                            " " +
-                            "has " + player.hitPoints + " hit points remaining.");
+                    System.out.println(player.name + " takes " + damageRoll + " points of damage");
+                    player.checkStatus();
+                    if (player.isDead) {
+                        break;
+                    } else {
+                        System.out.println(player.name + " has " + player.hitPoints + " hit points remaining.");
+                    }
+                    round(player,encounter);
+                    break;
                 } else {
                     System.out.println(player.name + " has escaped the encounter!");
                     break;
                 }
+            default :
+                System.out.println("Invalid entry");
+                round(player,encounter);
         }
     }
 }

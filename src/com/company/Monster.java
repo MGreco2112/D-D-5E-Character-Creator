@@ -36,12 +36,15 @@ public class Monster {
 
     public void attack(Weapon attack, Character target) {
         int attackRoll = d20.roll() + attackBonus;
-        if (attackRoll >= target.armorClass) {
+        int flatRoll = d20.faceUpValue;
+        if (attackRoll >= target.armorClass && flatRoll != 1 || flatRoll == 20) {
             System.out.println(name + " hits " + target.name + " with " + attack.name + "!");
             int damageRoll = (weapon.damageCode.roll() * weapon.numberOfDice);
             target.hitPoints -= damageRoll;
             System.out.println(target.name + " takes " + damageRoll + " points of damage!");
             target.checkStatus();
+        } else if (flatRoll == 1) {
+            System.out.println(name + " missed! Critical Fail!");
         } else {
             System.out.println(attack.name + " missed!");
         }

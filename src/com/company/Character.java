@@ -87,16 +87,19 @@ public class Character {
     public void attack(Weapon weapon, Monster enemy) {
         if (gear.contains(weapon)) {
             int attackRoll = d20.roll();
+            int flatRoll = d20.faceUpValue;
                 if (proficiencies.contains(weapon.name)) {
                     attackRoll += profBonus;
                     System.out.println(attackRoll + " is rolled against " + enemy.name + "'s armor class.");
                 }
-                if (attackRoll >= enemy.armorClass) {
-                    System.out.println("Hit!");
+                if (attackRoll >= enemy.armorClass && flatRoll != 1 || flatRoll == 20) {
+                    System.out.println(name + " hits with " + weapon.name + " !");
                     int damageRoll = (weapon.damageCode.roll() * weapon.numberOfDice);
                     enemy.hitPoints -= damageRoll;
                     System.out.println(damageRoll + " points of damage dealt to " + enemy.name);
                     enemy.checkStatus();
+                } else if (flatRoll == 1) {
+                    System.out.println("Critical Failure! Miss!");
                 } else {
                     System.out.println("The attack did not hit!");
                 }
