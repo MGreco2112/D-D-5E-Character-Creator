@@ -83,6 +83,69 @@ public class Character {
         return proficiency + " has been added";
     }
 
+    public int abilityCheck(String ability) {
+        int abilityCheck = d20.roll();
+        int abilityScore = 0;
+
+        if (ability.equals("str") || ability.equals("Strength") || ability.equals("strength")) {
+            abilityScore = str;
+        } else if (ability.equals("dex") || ability.equals("Dexterity") || ability.equals("dexterity")) {
+            abilityScore = dex;
+        } else if (ability.equals("con") || ability.equals("Constitution") || ability.equals("constitution")) {
+            abilityScore = con;
+        } else if (ability.equals("int") || ability.equals("Intelligence") || ability.equals("intelligence")) {
+            abilityScore = intel;
+        } else if (ability.equals("wis") || ability.equals("Wisdom") || ability.equals("wisdom")) {
+            abilityScore = wis;
+        } else if (ability.equals("cha") || ability.equals("Charisma") || ability.equals("charisma")) {
+            abilityScore = cha;
+        }
+
+        abilityCheck += abilityMod(abilityScore);
+
+        return abilityCheck;
+    }
+
+    private int abilityMod(int abilityScore) {
+        int abilityModifier = 0;
+
+        if (abilityScore == 1) {
+            abilityModifier -= 5;
+        } else if (abilityScore <= 3) {
+            abilityModifier -=4;
+        } else if (abilityScore <= 5) {
+            abilityModifier -= 3;
+        } else if (abilityScore <= 7) {
+            abilityModifier -= 2;
+        } else if (abilityScore <= 9) {
+            abilityModifier -= 1;
+        } else if (abilityScore <= 11) {
+            abilityModifier += 0;
+        } else if (abilityScore <= 13) {
+            abilityModifier += 1;
+        } else if (abilityScore <= 15) {
+            abilityModifier += 2;
+        } else if (abilityScore <= 17) {
+            abilityModifier += 3;
+        } else if (abilityScore <= 19) {
+            abilityModifier += 4;
+        } else if (abilityScore <= 21) {
+            abilityModifier += 5;
+        } else if (abilityScore <= 23) {
+            abilityModifier += 6;
+        } else if (abilityScore <= 25) {
+            abilityModifier += 7;
+        } else if (abilityScore <= 27) {
+            abilityModifier += 8;
+        } else if (abilityScore <= 29) {
+            abilityModifier += 9;
+        } else if (abilityScore == 30) {
+            abilityModifier += 10;
+        }
+
+        return abilityModifier;
+    }
+
 
     public void attack(Weapon weapon, Monster enemy) {
         if (gear.contains(weapon)) {

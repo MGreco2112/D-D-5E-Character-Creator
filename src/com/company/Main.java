@@ -18,9 +18,13 @@ public class Main {
         Spell mage_hand = new Spell("Mage Hand", 0, "Conjuration", 1, 30, "V, S", 60);
 
 
-        Character winter = new Character("Winter", "Bard", 1, Die.rollStats(), Die.rollStats(), Die.rollStats(), Die.rollStats()
+        Character winter = new Character("Winter", "Bard", 1, Die.rollStats(), Die.rollStats(), Die.rollStats(),
+                Die.rollStats()
         , Die.rollStats(), Die.rollStats(), 8, 12, 30, 2, 0, true, false, true,
                 "Lawful Neutral");
+
+
+
 
         winter.addEquipment(clothes);
         winter.addEquipment(dagger);
@@ -29,7 +33,7 @@ public class Main {
         winter.addSpell(mage_hand);
 
         System.out.println(winter);
-
+//
         Monster goblin = new Monster("Goblin", 5, 12, 2, club);
 
 
