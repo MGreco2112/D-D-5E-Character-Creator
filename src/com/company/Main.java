@@ -2,7 +2,7 @@ package com.company;
 
 public class Main {
 
-    // TODO add classes Dungeon, Room, Created Items, Created Monsters
+    // TODO add classes Dungeon, Door, Trap, Puzzle, Created Items, Created Monsters, Created Spells
     public static void main(String[] args) {
         Die dPercent = new Die(100, 100);
         Die d20 = new Die(20, 20);
@@ -16,7 +16,7 @@ public class Main {
         Weapon dagger = new Weapon("Dagger", false, "Finesse, light, thrown (20/60)", 1, 1, d4);
         Weapon club = new Weapon("Club", false, "Fight", 2, 1, d4);
         Gear clothes = new Gear("Common Clothes", "Tunic; gray", 3);
-        Spell mage_hand = new Spell("Mage Hand", 0, "Conjuration", 1, 30, "V, S", 60);
+        Spell mage_hand = new Spell("Mage Hand", 0, "Conjuration", 1, 30, "V, S", 60, 0);
 
 
         Character winter = new Character("Winter", "Bard", 1, Die.rollStats(), Die.rollStats(), Die.rollStats(),
@@ -35,7 +35,7 @@ public class Main {
 
         System.out.println(winter);
 //
-        Monster goblin = new Monster("Goblin", 5, 12, 2, club);
+        Monster goblin = new Monster("Goblin", "", 5, 12, 2, club);
 
 
         Combat.round(winter, goblin);

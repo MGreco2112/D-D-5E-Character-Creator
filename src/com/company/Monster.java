@@ -2,7 +2,6 @@ package com.company;
 
 import java.util.ArrayList;
 
-// TODO add unique String description field in constructor
 public class Monster {
     public Die d20 = new Die(20,20);
     public int hitPoints;
@@ -10,11 +9,13 @@ public class Monster {
     public int armorClass;
     public boolean isDead;
     public String name;
+    String description;
     public Weapon weapon;
     public ArrayList<Item> treasure = new ArrayList<>();
 
-    public Monster(String name, int hitPoints, int armorClass, int attackBonus, Weapon attack) {
+    public Monster(String name, String description, int hitPoints, int armorClass, int attackBonus, Weapon attack) {
         this.name = name;
+        this.description = description;
         this.hitPoints = hitPoints;
         this.attackBonus = attackBonus;
         this.armorClass = armorClass;

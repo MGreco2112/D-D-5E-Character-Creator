@@ -11,14 +11,14 @@ public class Combat {
         Die d20 = new Die(20,20);
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println(encounter.name + " stands in your path! What do you want to do?\n(l)ook\n(a)ttack\n(r)un");
+        System.out.println(encounter.name + " stands in your path! What do you want to do?\n(l)ook\n(a)ttack\n(c)" +
+                "ast spell\n(r)un");
 
         String choice = scanner.nextLine();
 
         switch (choice.toLowerCase(Locale.ROOT)) {
             case "l" :
-                System.out.println(encounter.name + " stands before you. A description will accompany the Monster " +
-                        "class in a future build.");
+                System.out.println(encounter.name + " stands before you.\n" + encounter.description);
                 round(player,encounter);
                 break;
 
@@ -34,7 +34,7 @@ public class Combat {
                         encounter.checkStatus();
                         break;
                     }
-                } else if (playerInitiative < encounterInitiative) {
+                } else {
                     encounter.attack(encounter.weapon, player);
                     if (!player.isDead) {
                         player.attack(player.readiedWeapon, encounter);
@@ -69,6 +69,25 @@ public class Combat {
                     break;
                 } else {
                     System.out.println(player.name + " has escaped the encounter!");
+                    break;
+                }
+            // TODO Finish (c)ast option (Add initiative and a response to spell)
+            case "c" :
+                if (player.isArcane || player.isDivine && player.spells.size() != 0) {
+                    System.out.println("Which Spell will " + player.name + " cast?\nEnter number next to Spell name");
+                    for (int i = 0; i < player.spells.size(); i++) {
+                        System.out.println((i + 1) + ") " + player.spells.get(i));
+                    }
+                    int input = scanner.nextInt();
+
+                    player.castSpell(player.spells.get(input - 1), encounter);
+
+                    round(player, encounter);
+                    break;
+                } else {
+                    System.out.println(player.name + " has no spells to cast!");
+
+                    round(player, encounter);
                     break;
                 }
             default :

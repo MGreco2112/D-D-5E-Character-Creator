@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Character {
     public Die d20 = new Die(20,20);
+    public Room currentRoom;
     public int level;
     public int str;
     public int dex;
@@ -30,6 +31,7 @@ public class Character {
     ArrayList<Item> gear = new ArrayList<>();
     ArrayList<Integer> stats = new ArrayList<>();
     ArrayList<String> proficiencies = new ArrayList<>();
+    ArrayList<String> proficientSkills = new ArrayList<>();
 
     public Character(String name, String classLevel, int level, int str, int dex, int con, int intel, int wis, int cha,
                      int hitPoints,
@@ -83,6 +85,11 @@ public class Character {
     public String addProficiency(String proficiency) {
         proficiencies.add(proficiency);
         return proficiency + " has been added";
+    }
+
+    // TODO Change skill from String to actual Object with name and root Ability
+    public void addSkill(String skill) {
+        proficientSkills.add(skill);
     }
 
     public int abilityCheck(String ability) {
@@ -182,6 +189,32 @@ public class Character {
             System.out.println(weapon.name + " now has " + weapon.ammo + " ammunition.");
         } else {
             System.out.println(weapon.name + " does not take ammunition.");
+        }
+    }
+
+    // TODO Finish effect of casting Spell
+    public void castSpell(Spell spell, Monster target) {
+        if (spell.damageCode != null) {
+            int spellRoll = spell.effect();
+
+            if (isArcane) {
+                spellRoll += abilityMod(intel);
+            } else if (isDivine) {
+                spellRoll += abilityMod(wis);
+            }
+
+            System.out.println(name + " casts " + spell.name + " at " + target.name + "!\nRoll: " + spellRoll);
+
+            if (spellRoll >= target.armorClass) {
+                int damageRoll = (spell.damageCode.roll() * spell.numberOfDice);
+
+                System.out.println("Hit!\n" + spell.name + " deals " + damageRoll + " points of damage to " + target.name +
+                        "!");
+                target.hitPoints -= damageRoll;
+            }
+
+        } else {
+            System.out.println("Non combative spell!");
         }
     }
 
