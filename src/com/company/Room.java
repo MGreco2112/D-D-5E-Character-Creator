@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Room {
     public String name;
     public String description;
+    public Dungeon dungeon;
     public int numberOfDoors;
     public boolean activeMonster;
     public boolean activeItem;
@@ -45,6 +46,7 @@ public class Room {
         return item.name + " has been added.";
     }
 
+    //TODO Use Scanner to build a new instance of Door and add it to the doors ArrayList
     public String addDoor(Door door) {
         doors.add(door);
 
