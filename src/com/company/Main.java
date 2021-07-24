@@ -17,29 +17,47 @@ public class Main {
         Weapon club = new Weapon("Club", false, "Fight", 2, 1, d4);
         Gear clothes = new Gear("Common Clothes", "Tunic; gray", 3);
         Spell mage_hand = new Spell("Mage Hand", 0, "Conjuration", 1, 30, "V, S", 60, 0);
-
-
+//
+//
         Character winter = new Character("Winter", "Bard", 1, Die.rollStats(), Die.rollStats(), Die.rollStats(),
                 Die.rollStats()
         , Die.rollStats(), Die.rollStats(), 8, 12, 30, 2, 0, true, false, true,
                 "Lawful Neutral");
-
-
-
-
-        winter.addEquipment(clothes);
+//
+//
+//
+//
+//        winter.addEquipment(clothes);
         winter.addEquipment(dagger);
         winter.readyWeapon(dagger);
         winter.addProficiency("Dagger");
-        winter.addSpell(mage_hand);
-
-        System.out.println(winter);
+//        winter.addSpell(mage_hand);
+//
+//        System.out.println(winter);
 //
         Monster goblin = new Monster("Goblin", "", 5, 12, 2, club);
+//
+//
+//        Combat.round(winter, goblin);
 
 
-        Combat.round(winter, goblin);
 
+        Room room1 = new Room("Entry Way", "A 20' x 20' cave entrance filled with dripping stalactites", 1, false,false,
+                false, false);
+        Room room2 = new Room("Cave", "A 10' by 50' natural hallway sunken deep into the mountain", 1, true, false,
+                false, false);
+
+        Door door1 = new Door("Wood", "Between the cave mouth and the back passage", 2, false, false, room1, room2);
+
+        room1.addDoor(door1);
+        room2.addDoor(door1);
+        room2.addMonster(goblin);
+
+        Dungeon testDungeon = new Dungeon("Test Dungeon", 2);
+        testDungeon.addRoom(room1);
+        testDungeon.addRoom(room2);
+
+        testDungeon.addCharacter(winter);
 
 
     }

@@ -1,9 +1,11 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 // TODO Create a dungeon Room that can possibly contain a Monster, Item(s), Puzzle(s), *Trap(s)
 public class Room {
+    private Scanner scanner = new Scanner(System.in);
     public String name;
     public String description;
     public Dungeon dungeon;
@@ -51,6 +53,21 @@ public class Room {
         doors.add(door);
 
         return "Door to " + door.roomB + " has been added";
+    }
+
+    public void combatCheck() {
+        if (activeMonster) {
+            int counter = 1;
+            System.out.println("Which monster will you engage with?");
+            for (Monster monster : roomMonsters) {
+                System.out.println(counter + ") " + monster.name);
+                counter++;
+            }
+            int choice = scanner.nextInt() - 1;
+
+            Combat.round(dungeon.activeCharacter, roomMonsters.get(choice));
+
+        }
     }
 
 

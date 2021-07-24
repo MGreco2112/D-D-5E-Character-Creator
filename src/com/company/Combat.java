@@ -32,6 +32,10 @@ public class Combat {
                         encounter.attack(encounter.weapon, player);
                     } else {
                         encounter.checkStatus();
+                        player.currentRoom.roomMonsters.remove(encounter);
+                        if (player.currentRoom.roomMonsters.size() <= 0) {
+                            player.currentRoom.activeMonster = false;
+                        }
                         break;
                     }
                 } else {
