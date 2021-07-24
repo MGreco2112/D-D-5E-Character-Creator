@@ -1,6 +1,7 @@
 package com.company;
 
-// TODO String type (wood, stone, iron, etc), boolean isLocked, Room roomA, Room roomB
+// TODO String type (wood, stone, iron, etc), boolean isLocked, Room roomA, Room roomB, add entrance type that will
+//  exit dungeon when passed through
 public class Door {
     public String type;
     public String locationInRoom;
