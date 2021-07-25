@@ -7,19 +7,22 @@ public class Monster {
     public int hitPoints;
     public int attackBonus;
     public int armorClass;
+    public int experiencePoints;
     public boolean isDead;
     public String name;
     String description;
     public Weapon weapon;
     public ArrayList<Item> treasure = new ArrayList<>();
 
-    public Monster(String name, String description, int hitPoints, int armorClass, int attackBonus, Weapon attack) {
+    public Monster(String name, String description, int hitPoints, int armorClass, int attackBonus, Weapon attack,
+                   int experiencePoints) {
         this.name = name;
         this.description = description;
         this.hitPoints = hitPoints;
         this.attackBonus = attackBonus;
         this.armorClass = armorClass;
         this.weapon = attack;
+        this.experiencePoints = experiencePoints;
     }
 
     public void addTreasure(Item treasure) {

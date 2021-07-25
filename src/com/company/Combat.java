@@ -35,6 +35,7 @@ public class Combat {
                         if (player.currentRoom.roomMonsters.size() <= 0) {
                             player.currentRoom.activeMonster = false;
                         }
+                        System.out.println(player.gainExperience(encounter));
                         break;
                     }
                 } else {
@@ -100,6 +101,7 @@ public class Combat {
                             if (player.currentRoom.roomMonsters.size() <= 0) {
                                 player.currentRoom.activeMonster = false;
                             }
+                            System.out.println(player.gainExperience(encounter));
                         }
 
                         break;

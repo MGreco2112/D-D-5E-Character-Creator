@@ -19,6 +19,7 @@ public class Character {
     public int speed;
     public int profBonus;
     public int gold;
+    public int experiencePoints = 0; // TODO Modify this into constructor if character is not starting with zero
     public boolean isArcane;
     public boolean isDivine;
     public boolean isRogue;
@@ -218,6 +219,12 @@ public class Character {
         } else {
             System.out.println("Non combative spell!");
         }
+    }
+
+    public String gainExperience(Monster enemy) {
+        experiencePoints += enemy.experiencePoints;
+
+        return name + " gains " + enemy.experiencePoints + " experience points!";
     }
 
     public void checkStatus() {

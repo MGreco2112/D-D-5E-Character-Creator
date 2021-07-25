@@ -45,7 +45,7 @@ public class Dungeon {
 
     public void endGame() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println(activeCharacter.name + ", Score: score system to be implemented in a later build.");
+        System.out.println(activeCharacter.name + ", Score: " + activeCharacter.experiencePoints);
         System.out.println("Do you want to play again?\n(y)es or (n)o");
         String choice = scanner.nextLine();
         switch (choice.toLowerCase(Locale.ROOT)) {

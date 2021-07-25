@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    // TODO add classes Dungeon, Door, Trap, Puzzle, Created Items, Created Monsters, Created Spells
+    // TODO add classes Trap, Puzzle, Created Items, Created Monsters, Created Spells
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Die dPercent = new Die(100, 100);
@@ -16,9 +16,7 @@ public class Main {
         Die d4 = new Die(4,4);
         Die d2 = new Die(2,2);
 
-        Weapon dagger = WeaponCollection.dagger();
-        Weapon mace = WeaponCollection.mace();
-        Weapon club = WeaponCollection.club();
+
         Gear clothes = new Gear("Common Clothes", "Tunic; gray", 3);
         Spell mage_hand = new Spell("Mage Hand", 0, "Conjuration", 1, 30, "V, S", 60, 0);
         Spell magic_missile = new Spell("Magic Missile", 1, "Evocation", 1, 120, "V, S", 0, 4, d4, 1);
@@ -32,10 +30,10 @@ public class Main {
 
 
 
+        winter.addEquipment(WeaponCollection.dagger());
+        winter.addEquipment(WeaponCollection.mace());
         winter.addEquipment(clothes);
-        winter.addEquipment(dagger);
-        winter.addEquipment(mace);
-        winter.readyWeapon(dagger);
+        winter.readyWeapon((Weapon) winter.gear.get(0));
         winter.addProficiency("Dagger");
         winter.addProficiency("Mace");
         winter.addSpell(mage_hand);
@@ -43,7 +41,8 @@ public class Main {
 
         System.out.println(winter);
 
-        Monster goblin = new Monster("Goblin", "Ugly, Green, Hooked nose, Angry", 5, 12, 2, club);
+        Monster goblin = new Monster("Goblin", "Ugly, Green, Hooked nose, Angry", 5, 12, 2, WeaponCollection.club()
+        , 500);
 
 
 //        Combat.round(winter, goblin);
