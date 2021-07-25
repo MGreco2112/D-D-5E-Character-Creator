@@ -35,20 +35,25 @@ public class Main {
 //
 //        System.out.println(winter);
 //
-        Monster goblin = new Monster("Goblin", "", 5, 12, 2, club);
+        Monster goblin = new Monster("Goblin", "Ugly, Green, Hooked nose, Angry", 5, 12, 2, club);
 //
 //
 //        Combat.round(winter, goblin);
 
 
 
-        Room room1 = new Room("Entry Way", "A 20' x 20' cave entrance filled with dripping stalactites", 1, false,false,
+        Room room1 = new Room("Entry Way", "A 20' x 20' cave entrance filled with dripping stalactites", 2, false,false,
                 false, false);
         Room room2 = new Room("Cave", "A 10' by 50' natural hallway sunken deep into the mountain", 1, true, false,
                 false, false);
 
-        Door door1 = new Door("Wood", "Between the cave mouth and the back passage", 2, false, false, room1, room2);
+        Door entranceDoor = new Door("Cave", "Gaping hole in the side of a mountain", 0, false, false, true, room1,
+                room1);
 
+        Door door1 = new Door("Wood", "Between the cave mouth and the back passage", 2, false, false, false, room1,
+                room2);
+
+        room1.addDoor(entranceDoor);
         room1.addDoor(door1);
         room2.addDoor(door1);
         room2.addMonster(goblin);
@@ -59,7 +64,7 @@ public class Main {
 
         testDungeon.addCharacter(winter);
 
-//        testDungeon.startDungeon();
+        testDungeon.startDungeon();
 
         /*
         while in current room the menu cli should be up allowing a list of options to be selected
@@ -67,6 +72,8 @@ public class Main {
             when a room transition occurs
         exiting the dungeon should be possible, which will bring up a scoring system of some kind
          */
+
+
 
     }
 }

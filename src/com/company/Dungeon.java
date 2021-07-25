@@ -1,6 +1,8 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Scanner;
 
 public class Dungeon {
     public String name;
@@ -39,6 +41,25 @@ public class Dungeon {
     public void changeCurrentRoom(Room room) {
         currentRoom = room;
         activeCharacter.currentRoom = room;
+    }
+
+    public void endGame() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println(activeCharacter.name + ", Score: score system to be implemented in a later build.");
+        System.out.println("Do you want to play again?\n(y)es or (n)o");
+        String choice = scanner.nextLine();
+        switch (choice.toLowerCase(Locale.ROOT)) {
+            case "y" :
+                startDungeon();
+                break;
+            case "n" :
+                System.out.println("Thank you for playing!");
+                System.exit(0);
+                break;
+            default:
+                System.out.println("Invalid selection");
+                endGame();
+        }
     }
 
 }

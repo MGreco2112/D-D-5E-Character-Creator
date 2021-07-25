@@ -23,7 +23,7 @@ public class Combat {
                 break;
 
             case "a" :
-                int playerInitiative = d20.roll();
+                int playerInitiative = d20.roll() + player.abilityCheck("dex");
                 int encounterInitiative = d20.roll();
 
                 if (playerInitiative >= encounterInitiative) {
@@ -77,22 +77,49 @@ public class Combat {
                 }
             // TODO Finish (c)ast option (Add initiative and a response to spell)
             case "c" :
-                if (player.isArcane || player.isDivine && player.spells.size() != 0) {
-                    System.out.println("Which Spell will " + player.name + " cast?\nEnter number next to Spell name");
-                    for (int i = 0; i < player.spells.size(); i++) {
-                        System.out.println((i + 1) + ") " + player.spells.get(i));
+                playerInitiative = d20.roll() + player.abilityCheck("dex");
+                encounterInitiative = d20.roll();
+
+                if (playerInitiative >= encounterInitiative) {
+
+                    if (player.isArcane || player.isDivine && player.spells.size() != 0) {
+                        System.out.println("Which Spell will " + player.name + " cast?\nEnter number next to Spell name");
+                        for (int i = 0; i < player.spells.size(); i++) {
+                            System.out.println((i + 1) + ") " + player.spells.get(i));
+                        }
+                        int input = scanner.nextInt();
+
+                        player.castSpell(player.spells.get(input - 1), encounter);
+
+                        round(player, encounter);
+                        break;
+                    } else {
+                        System.out.println(player.name + " has no spells to cast!");
+
+                        round(player, encounter);
+                        break;
                     }
-                    int input = scanner.nextInt();
-
-                    player.castSpell(player.spells.get(input - 1), encounter);
-
-                    round(player, encounter);
-                    break;
                 } else {
-                    System.out.println(player.name + " has no spells to cast!");
+                    encounter.attack(encounter.weapon, player);
+                    if (!player.isDead) {
+                        if (player.isArcane || player.isDivine && player.spells.size() != 0) {
+                            System.out.println("Which Spell will " + player.name + " cast?\nEnter number next to Spell name");
+                            for (int i = 0; i < player.spells.size(); i++) {
+                                System.out.println((i + 1) + ") " + player.spells.get(i));
+                            }
+                            int input = scanner.nextInt();
 
-                    round(player, encounter);
-                    break;
+                            player.castSpell(player.spells.get(input - 1), encounter);
+
+                            round(player, encounter);
+                            break;
+                        }
+                    } else {
+                        System.out.println(player.name + " has no spells to cast!");
+
+                        round(player, encounter);
+                        break;
+                    }
                 }
             default :
                 System.out.println("Invalid entry");
