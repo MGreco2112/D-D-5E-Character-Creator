@@ -12,7 +12,7 @@ public class Combat {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(encounter.name + " stands in your path! What do you want to do?\n(l)ook\n(a)ttack\n(c)" +
-                "ast spell\n(r)un");
+                "ast spell\n(r)un\n(w)eapon change");
 
         String choice = scanner.nextLine();
 
@@ -127,6 +127,50 @@ public class Combat {
                         System.out.println(player.name + " has no spells to cast!");
 
                         round(player, encounter);
+                        break;
+                    }
+                }
+
+            case "w":
+                playerInitiative = d20.roll() + player.abilityCheck("dex");
+                encounterInitiative = d20.roll();
+
+                if (playerInitiative >= encounterInitiative) {
+                    System.out.println("Which Weapon shall " + player.name + " attack with?");
+                    for (int i = 0; i < player.gear.size(); i++) {
+                        if (player.gear.get(i).isWeapon) {
+                            System.out.println((i+1) + ") " + player.gear.get(i).name);
+                        }
+                    }
+
+                    int weaponSelection = scanner.nextInt() - 1;
+
+                    player.readyWeapon((Weapon) player.gear.get(weaponSelection));
+
+                    encounter.attack(encounter.weapon, player);
+
+                    if (!player.isDead && !encounter.isDead) {
+                        round(player, encounter);
+                    }
+                    break;
+
+                } else {
+                    encounter.attack(encounter.weapon, player);
+                    if (!player.isDead) {
+                        System.out.println("Which Weapon shall " + player.name + " attack with?");
+                        for (int i = 0; i < player.gear.size(); i++) {
+                            if (player.gear.get(i).isWeapon) {
+                                System.out.println((i+1) + ") " + player.gear.get(i).name);
+                            }
+                        }
+
+                        int weaponSelection = scanner.nextInt() - 1;
+
+                        player.readyWeapon((Weapon) player.gear.get(weaponSelection));
+
+                        if (!player.isDead && !encounter.isDead) {
+                            round(player, encounter);
+                        }
                         break;
                     }
                 }
