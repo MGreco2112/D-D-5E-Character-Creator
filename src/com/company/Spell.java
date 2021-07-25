@@ -44,7 +44,7 @@ public class Spell {
     public int effect() {
         Die d20 = new Die(20,20);
 
-        return d20.roll() + rollBonus;
+        return d20.roll();
     }
 
     public String toString() {

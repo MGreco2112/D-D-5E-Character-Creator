@@ -89,7 +89,6 @@ public class Combat {
 
                         player.castSpell(player.spells.get(input - 1), encounter);
 
-                        encounter.checkStatus();
                         if (!encounter.isDead) {
                             encounter.attack(encounter.weapon, player);
                             round(player, encounter);

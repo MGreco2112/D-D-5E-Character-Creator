@@ -206,11 +206,13 @@ public class Character {
             System.out.println(name + " casts " + spell.name + " at " + target.name + "!\nRoll: " + spellRoll);
 
             if (spellRoll >= target.armorClass) {
-                int damageRoll = (spell.damageCode.roll() * spell.numberOfDice);
+                int damageRoll = (spell.damageCode.roll() * spell.numberOfDice) + spell.rollBonus;
 
                 System.out.println("Hit!\n" + spell.name + " deals " + damageRoll + " points of damage to " + target.name +
                         "!");
                 target.hitPoints -= damageRoll;
+            } else {
+                System.out.println("The spell missed!");
             }
 
         } else {

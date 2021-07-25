@@ -17,27 +17,29 @@ public class Main {
         Weapon club = new Weapon("Club", false, "Fight", 2, 1, d4);
         Gear clothes = new Gear("Common Clothes", "Tunic; gray", 3);
         Spell mage_hand = new Spell("Mage Hand", 0, "Conjuration", 1, 30, "V, S", 60, 0);
-//
-//
+        Spell magic_missile = new Spell("Magic Missile", 1, "Evocation", 1, 120, "V, S", 0, 4, d4, 1);
+
+
         Character winter = new Character("Winter", "Bard", 1, Die.rollStats(), Die.rollStats(), Die.rollStats(),
                 Die.rollStats()
         , Die.rollStats(), Die.rollStats(), 8, 12, 30, 2, 0, true, false, true,
                 "Lawful Neutral");
-//
-//
-//
-//
-//        winter.addEquipment(clothes);
+
+
+
+
+        winter.addEquipment(clothes);
         winter.addEquipment(dagger);
         winter.readyWeapon(dagger);
         winter.addProficiency("Dagger");
         winter.addSpell(mage_hand);
-//
-//        System.out.println(winter);
-//
+        winter.addSpell(magic_missile);
+
+        System.out.println(winter);
+
         Monster goblin = new Monster("Goblin", "Ugly, Green, Hooked nose, Angry", 5, 12, 2, club);
-//
-//
+
+
 //        Combat.round(winter, goblin);
 
 
