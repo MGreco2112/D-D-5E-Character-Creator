@@ -31,7 +31,6 @@ public class Combat {
                     if (!encounter.isDead) {
                         encounter.attack(encounter.weapon, player);
                     } else {
-                        encounter.checkStatus();
                         player.currentRoom.roomMonsters.remove(encounter);
                         if (player.currentRoom.roomMonsters.size() <= 0) {
                             player.currentRoom.activeMonster = false;
@@ -43,7 +42,6 @@ public class Combat {
                     if (!player.isDead) {
                         player.attack(player.readiedWeapon, encounter);
                     } else {
-                        player.checkStatus();
                         break;
                     }
                 }
