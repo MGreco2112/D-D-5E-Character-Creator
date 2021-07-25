@@ -31,7 +31,7 @@ public class Main {
         winter.addEquipment(dagger);
         winter.readyWeapon(dagger);
         winter.addProficiency("Dagger");
-//        winter.addSpell(mage_hand);
+        winter.addSpell(mage_hand);
 //
 //        System.out.println(winter);
 //
@@ -47,6 +47,11 @@ public class Main {
         Room room2 = new Room("Cave", "A 10' by 50' natural hallway sunken deep into the mountain", 1, true, false,
                 false, false);
 
+
+        Dungeon testDungeon = new Dungeon("Test Dungeon", 2);
+        testDungeon.addRoom(room1);
+        testDungeon.addRoom(room2);
+
         Door entranceDoor = new Door("Cave", "Gaping hole in the side of a mountain", 0, false, false, true, room1,
                 room1);
 
@@ -58,13 +63,13 @@ public class Main {
         room2.addDoor(door1);
         room2.addMonster(goblin);
 
-        Dungeon testDungeon = new Dungeon("Test Dungeon", 2);
-        testDungeon.addRoom(room1);
-        testDungeon.addRoom(room2);
 
         testDungeon.addCharacter(winter);
 
         testDungeon.startDungeon();
+
+        door1.open();
+        Combat.round(winter, winter.currentRoom.roomMonsters.get(0));
 
         /*
         while in current room the menu cli should be up allowing a list of options to be selected

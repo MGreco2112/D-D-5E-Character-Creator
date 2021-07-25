@@ -5,6 +5,10 @@ import java.util.Scanner;
 
 // TODO String type (wood, stone, iron, etc), boolean isLocked, Room roomA, Room roomB, add entrance type that will
 //  exit dungeon when passed through
+
+//TODO REMEMBER!!! Doors can only work if they are added to the room after the room has been added to the dungeon
+
+
 public class Door {
     public String type;
     public String locationInRoom;

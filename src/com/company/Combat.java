@@ -82,7 +82,7 @@ public class Combat {
 
                 if (playerInitiative >= encounterInitiative) {
 
-                    if (player.isArcane || player.isDivine && player.spells.size() != 0) {
+                    if (player.spells.size() > 0 && player.isArcane || player.isDivine) {
                         System.out.println("Which Spell will " + player.name + " cast?\nEnter number next to Spell name");
                         for (int i = 0; i < player.spells.size(); i++) {
                             System.out.println((i + 1) + ") " + player.spells.get(i));
@@ -91,7 +91,19 @@ public class Combat {
 
                         player.castSpell(player.spells.get(input - 1), encounter);
 
-                        round(player, encounter);
+                        encounter.checkStatus();
+                        if (!encounter.isDead) {
+                            encounter.attack(encounter.weapon, player);
+                            round(player, encounter);
+                            break;
+                        } else {
+                            encounter.checkStatus();
+                            player.currentRoom.roomMonsters.remove(encounter);
+                            if (player.currentRoom.roomMonsters.size() <= 0) {
+                                player.currentRoom.activeMonster = false;
+                            }
+                        }
+
                         break;
                     } else {
                         System.out.println(player.name + " has no spells to cast!");
@@ -102,7 +114,7 @@ public class Combat {
                 } else {
                     encounter.attack(encounter.weapon, player);
                     if (!player.isDead) {
-                        if (player.isArcane || player.isDivine && player.spells.size() != 0) {
+                        if (player.spells.size() > 0 && player.isArcane || player.isDivine) {
                             System.out.println("Which Spell will " + player.name + " cast?\nEnter number next to Spell name");
                             for (int i = 0; i < player.spells.size(); i++) {
                                 System.out.println((i + 1) + ") " + player.spells.get(i));
