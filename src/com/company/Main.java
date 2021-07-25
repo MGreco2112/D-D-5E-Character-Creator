@@ -1,9 +1,12 @@
 package com.company;
 
+import java.util.Scanner;
+
 public class Main {
 
     // TODO add classes Dungeon, Door, Trap, Puzzle, Created Items, Created Monsters, Created Spells
     public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
         Die dPercent = new Die(100, 100);
         Die d20 = new Die(20, 20);
         Die d12 = new Die(12,12);
@@ -15,7 +18,7 @@ public class Main {
 
         Weapon dagger = WeaponCollection.dagger();
         Weapon mace = WeaponCollection.mace();
-        Weapon club = new Weapon("Club", false, "Fight", 2, 1, d4);
+        Weapon club = WeaponCollection.club();
         Gear clothes = new Gear("Common Clothes", "Tunic; gray", 3);
         Spell mage_hand = new Spell("Mage Hand", 0, "Conjuration", 1, 30, "V, S", 60, 0);
         Spell magic_missile = new Spell("Magic Missile", 1, "Evocation", 1, 120, "V, S", 0, 4, d4, 1);
@@ -47,9 +50,12 @@ public class Main {
 
 
 
-        Room room1 = new Room("Entry Way", "A 20' x 20' cave entrance filled with dripping stalactites", 2, false,false,
+        Room room1 = new Room("Entry Way", "A 20' x 20' cave entrance filled with dripping stalactites. The Way out " +
+                "is to the South, a wooden door stands to the North.", 2,
+                false,false,
                 false, false);
-        Room room2 = new Room("Cave", "A 10' by 50' natural hallway sunken deep into the mountain", 1, true, false,
+        Room room2 = new Room("Cave", "A 10' by 50' natural hallway sunken deep into the mountain. A wooden door is " +
+                "to the South.", 1, true, false,
                 false, false);
 
 
@@ -73,8 +79,36 @@ public class Main {
 
         testDungeon.startDungeon();
 
+        System.out.println(testDungeon.currentRoom.description);
+
         door1.open();
-        Combat.round(winter, winter.currentRoom.roomMonsters.get(0));
+
+
+        while (testDungeon.currentRoom.activeMonster) {
+            System.out.println("There are monsters in this room! Which will you fight?");
+            for (int i = 0; i < testDungeon.currentRoom.roomMonsters.size(); i++) {
+                System.out.println((i + 1) + ") " + testDungeon.currentRoom.roomMonsters.get(i).name);
+            }
+            System.out.println("Enter the number of the Monster to fight:");
+
+            int monsterSelection = scanner.nextInt();
+
+            if (monsterSelection > testDungeon.currentRoom.roomMonsters.size()) {
+                System.out.println("Invalid Selection, Try Again");
+                System.out.println("There are monsters in this room! Which will you fight?");
+                for (int i = 0; i < testDungeon.currentRoom.roomMonsters.size(); i++) {
+                    System.out.println((i + 1) + ") " + testDungeon.currentRoom.roomMonsters.get(i).name);
+                }
+                System.out.println("Enter the number of the Monster to fight:");
+                monsterSelection = scanner.nextInt();
+            }
+
+            Combat.round(winter, testDungeon.currentRoom.roomMonsters.get(monsterSelection - 1));
+
+        }
+
+
+
 
         if (!winter.isDead) {
             door1.open();

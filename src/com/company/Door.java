@@ -36,6 +36,7 @@ public class Door {
     }
 
     public void open() {
+        System.out.println(dungeon.activeCharacter.name + " tries the door...");
         if (!isEntrance) {
             if (!isLocked && !isTrapped) {
                 System.out.println("The door is unlocked!");
@@ -44,6 +45,8 @@ public class Door {
                 } else {
                     dungeon.changeCurrentRoom(roomB);
                 }
+                System.out.println(dungeon.activeCharacter.name + " enters the next Room");
+                System.out.println(dungeon.currentRoom.description);
             } else if (!isTrapped) {
                 System.out.println("The door is Locked!");
             } else if (!isLocked) {

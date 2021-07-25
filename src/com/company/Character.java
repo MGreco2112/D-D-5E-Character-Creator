@@ -165,7 +165,7 @@ public class Character {
                     System.out.println(attackRoll + " is rolled against " + enemy.name + "'s armor class.");
                 }
                 if (attackRoll >= enemy.armorClass && flatRoll != 1 || flatRoll == 20) {
-                    System.out.println(name + " hits with " + weapon.name + " !");
+                    System.out.println(name + " hits with " + weapon.name + "!");
                     int damageRoll = (weapon.damageCode.roll() * weapon.numberOfDice);
                     enemy.hitPoints -= damageRoll;
                     System.out.println(damageRoll + " points of damage dealt to " + enemy.name);

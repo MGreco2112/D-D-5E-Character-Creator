@@ -73,7 +73,7 @@ public class Combat {
                     System.out.println(player.name + " has escaped the encounter!");
                     break;
                 }
-            // TODO Finish (c)ast option (Add initiative and a response to spell)
+
             case "c" :
                 playerInitiative = d20.roll() + player.abilityCheck("dex");
                 encounterInitiative = d20.roll();
@@ -89,12 +89,13 @@ public class Combat {
 
                         player.castSpell(player.spells.get(input - 1), encounter);
 
+                        encounter.checkStatus();
+
                         if (!encounter.isDead) {
                             encounter.attack(encounter.weapon, player);
                             round(player, encounter);
                             break;
                         } else {
-                            encounter.checkStatus();
                             player.currentRoom.roomMonsters.remove(encounter);
                             if (player.currentRoom.roomMonsters.size() <= 0) {
                                 player.currentRoom.activeMonster = false;
