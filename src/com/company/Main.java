@@ -1,5 +1,6 @@
 package com.company;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Main {
@@ -31,7 +32,6 @@ public class Main {
 
 
         winter.addEquipment(WeaponCollection.dagger());
-        winter.addEquipment(WeaponCollection.mace());
         winter.addEquipment(clothes);
         winter.readyWeapon((Weapon) winter.gear.get(0));
         winter.addProficiency("Dagger");
@@ -45,7 +45,7 @@ public class Main {
         , 500);
 
 
-//        Combat.round(winter, goblin);
+
 
 
 
@@ -56,6 +56,8 @@ public class Main {
         Room room2 = new Room("Cave", "A 10' by 50' natural hallway sunken deep into the mountain. A wooden door is " +
                 "to the South.", 1, true, false,
                 false, false);
+
+        room1.addItem(WeaponCollection.mace());
 
 
         Dungeon testDungeon = new Dungeon("Test Dungeon", 2);
@@ -78,9 +80,77 @@ public class Main {
 
         testDungeon.startDungeon();
 
+        String choice = "";
+
         System.out.println(testDungeon.currentRoom.description);
 
-        door1.open();
+        // TODO remove all instances of testDungeon when moved into Dungeon class
+
+        while (!choice.equals("o")) { //TODO While loop only for Main method use. Will remove when moved into Dungeon
+
+            System.out.println("What will " + testDungeon.activeCharacter.name + " do?\n(l)ook\n(s)earch\n(o)pen door");
+
+            choice = scanner.nextLine();
+
+            switch (choice.toLowerCase(Locale.ROOT)) {
+                case "l":
+                    System.out.println(testDungeon.currentRoom.description);
+                    break;
+
+                case "s":
+                    System.out.println(testDungeon.activeCharacter.name + " is searching...");
+                    if (testDungeon.currentRoom.roomItems.size() != 0) {
+                        int perceptionCheck = testDungeon.activeCharacter.abilityCheck("wis");
+                        if (perceptionCheck >= 13) {
+                            System.out.println(testDungeon.activeCharacter.name + " succeeds in finding items!");
+                            System.out.println("Enter the number next to the item to pick it up");
+
+                            for (int i = 0; i < testDungeon.currentRoom.roomItems.size(); i++) {
+                                System.out.println((i + 1) + ") " + testDungeon.currentRoom.roomItems.get(i));
+                            }
+                            System.out.println("0) Take All");
+                            int selectedItem = scanner.nextInt() - 1;
+
+                            if (selectedItem != -1) {
+                                System.out.println(testDungeon.activeCharacter.name + " takes " + testDungeon.currentRoom.roomItems.get(selectedItem));
+                                testDungeon.activeCharacter.addEquipment(testDungeon.currentRoom.roomItems.get(selectedItem));
+                                testDungeon.currentRoom.roomItems.remove(selectedItem);
+                            } else {
+                                for (Item item : testDungeon.currentRoom.roomItems) {
+                                    testDungeon.activeCharacter.addEquipment(item);
+                                    System.out.println(testDungeon.activeCharacter.name + " takes " + testDungeon.currentRoom.roomItems.get(testDungeon.currentRoom.roomItems.indexOf(item)));
+                                }
+                                    for (int i = 0; i < testDungeon.currentRoom.roomItems.size(); i++) {
+                                        testDungeon.currentRoom.roomItems.remove(i);
+                                        i--;
+                                    }
+                                break;
+                            }
+
+                        } else {
+                            System.out.println(testDungeon.activeCharacter.name + " finds nothing.");
+                            break;
+                        }
+                    } else {
+                        System.out.println(testDungeon.activeCharacter.name + " finds nothing");
+                        break;
+                    }
+
+                    break;
+
+                case "o":
+                    System.out.println("Which door will " + testDungeon.activeCharacter.name + " attempt to open?");
+                    int doorCount = 1;
+                    for (Door door : testDungeon.currentRoom.doors) {
+                        System.out.println(doorCount + ") " + door.type + " door, " + door.locationInRoom);
+                        doorCount++;
+                    }
+
+                    int doorSelection = scanner.nextInt() - 1;
+
+                    testDungeon.currentRoom.doors.get(doorSelection).open();
+            }
+        }
 
 
         while (testDungeon.currentRoom.activeMonster) {
