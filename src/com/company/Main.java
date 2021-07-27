@@ -112,18 +112,30 @@ public class Main {
                             int selectedItem = scanner.nextInt() - 1;
 
                             if (selectedItem != -1) {
+                                if (testDungeon.currentRoom.roomItems.get(selectedItem) instanceof Chest) {
+                                    ((Chest) testDungeon.currentRoom.roomItems.get(selectedItem)).openChest();
+                                } else {
                                 System.out.println(testDungeon.activeCharacter.name + " takes " + testDungeon.currentRoom.roomItems.get(selectedItem));
                                 testDungeon.activeCharacter.addEquipment(testDungeon.currentRoom.roomItems.get(selectedItem));
                                 testDungeon.currentRoom.roomItems.remove(selectedItem);
+                                }
+
                             } else {
                                 for (Item item : testDungeon.currentRoom.roomItems) {
-                                    testDungeon.activeCharacter.addEquipment(item);
-                                    System.out.println(testDungeon.activeCharacter.name + " takes " + testDungeon.currentRoom.roomItems.get(testDungeon.currentRoom.roomItems.indexOf(item)));
-                                }
-                                    for (int i = 0; i < testDungeon.currentRoom.roomItems.size(); i++) {
-                                        testDungeon.currentRoom.roomItems.remove(i);
-                                        i--;
+
+                                    if (item instanceof Chest) {
+                                        System.out.println("Chest cannot be taken");
+                                    } else {
+                                        testDungeon.activeCharacter.addEquipment(item);
+                                        System.out.println(testDungeon.activeCharacter.name + " takes " + testDungeon.currentRoom.roomItems.get(testDungeon.currentRoom.roomItems.indexOf(item)));
+                                        for (int i = 0; i < testDungeon.currentRoom.roomItems.size(); i++) {
+                                            testDungeon.currentRoom.roomItems.remove(i);
+                                            i--;
+                                        }
+
                                     }
+                                }
+
                                 break;
                             }
 

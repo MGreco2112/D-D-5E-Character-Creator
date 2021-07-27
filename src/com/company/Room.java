@@ -45,6 +45,10 @@ public class Room {
     public String addItem(Item item) {
         roomItems.add(item);
 
+        if (item instanceof Chest) {
+            ((Chest) item).dungeonRoom = this;
+        }
+
         return item.name + " has been added.";
     }
 
