@@ -70,6 +70,11 @@ public class Main {
         Door door1 = new Door("Wood", "Between the cave mouth and the back passage", 2, false, false, false, room1,
                 room2);
 
+        Chest testChest = new Chest("Test Chest", 1, false);
+
+        testChest.addItem(WeaponCollection.shortsword());
+        room1.addItem(testChest);
+
         room1.addDoor(entranceDoor);
         room1.addDoor(door1);
         room2.addDoor(door1);
@@ -128,13 +133,17 @@ public class Main {
                                     } else {
                                         testDungeon.activeCharacter.addEquipment(item);
                                         System.out.println(testDungeon.activeCharacter.name + " takes " + testDungeon.currentRoom.roomItems.get(testDungeon.currentRoom.roomItems.indexOf(item)));
-                                        for (int i = 0; i < testDungeon.currentRoom.roomItems.size(); i++) {
-                                            testDungeon.currentRoom.roomItems.remove(i);
-                                            i--;
-                                        }
 
                                     }
                                 }
+                                    for (int i = 0; i < testDungeon.currentRoom.roomItems.size(); i++) {
+                                        if (testDungeon.currentRoom.roomItems.get(i) instanceof Chest) {
+                                            i++;
+                                        } else {
+                                            testDungeon.currentRoom.roomItems.remove(i);
+                                            i--;
+                                        }
+                                    }
 
                                 break;
                             }
