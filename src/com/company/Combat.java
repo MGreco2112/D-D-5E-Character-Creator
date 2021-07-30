@@ -30,13 +30,6 @@ public class Combat {
                     player.attack(player.readiedWeapon, encounter);
                     if (!encounter.isDead) {
                         encounter.attack(encounter.weapon, player);
-                    } else {
-                        player.currentRoom.roomMonsters.remove(encounter);
-                        if (player.currentRoom.roomMonsters.size() <= 0) {
-                            player.currentRoom.activeMonster = false;
-                        }
-                        System.out.println(player.gainExperience(encounter));
-                        break;
                     }
                 } else {
                     encounter.attack(encounter.weapon, player);
@@ -96,12 +89,6 @@ public class Combat {
                             encounter.attack(encounter.weapon, player);
                             round(player, encounter);
                             break;
-                        } else {
-                            player.currentRoom.roomMonsters.remove(encounter);
-                            if (player.currentRoom.roomMonsters.size() <= 0) {
-                                player.currentRoom.activeMonster = false;
-                            }
-                            System.out.println(player.gainExperience(encounter));
                         }
 
                         break;

@@ -59,20 +59,6 @@ public class Room {
         return "Door to " + door.roomB + " has been added";
     }
 
-    public void combatCheck() {
-        if (activeMonster) {
-            int counter = 1;
-            System.out.println("Which monster will you engage with?");
-            for (Monster monster : roomMonsters) {
-                System.out.println(counter + ") " + monster.name);
-                counter++;
-            }
-            int choice = scanner.nextInt() - 1;
-
-            Combat.round(dungeon.activeCharacter, roomMonsters.get(choice));
-
-        }
-    }
 
 
     public String toString() {

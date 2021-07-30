@@ -85,125 +85,14 @@ public class Main {
 
         testDungeon.startDungeon();
 
-        String choice = "";
-
-        System.out.println(testDungeon.currentRoom.description);
-
-        // TODO remove all instances of testDungeon when moved into Dungeon class
-
-        while (!choice.equals("o")) { //TODO While loop only for Main method use. Will remove when moved into Dungeon
-
-            System.out.println("What will " + testDungeon.activeCharacter.name + " do?\n(l)ook\n(s)earch\n(o)pen door");
-
-            choice = scanner.nextLine();
-
-            switch (choice.toLowerCase(Locale.ROOT)) {
-                case "l":
-                    System.out.println(testDungeon.currentRoom.description);
-                    break;
-
-                case "s":
-                    System.out.println(testDungeon.activeCharacter.name + " is searching...");
-                    if (testDungeon.currentRoom.roomItems.size() != 0) {
-                        int perceptionCheck = testDungeon.activeCharacter.abilityCheck("wis");
-                        if (perceptionCheck >= 13) {
-                            System.out.println(testDungeon.activeCharacter.name + " succeeds in finding items!");
-                            System.out.println("Enter the number next to the item to pick it up");
-
-                            for (int i = 0; i < testDungeon.currentRoom.roomItems.size(); i++) {
-                                System.out.println((i + 1) + ") " + testDungeon.currentRoom.roomItems.get(i));
-                            }
-                            System.out.println("0) Take All");
-                            int selectedItem = scanner.nextInt() - 1;
-
-                            if (selectedItem != -1) {
-                                if (testDungeon.currentRoom.roomItems.get(selectedItem) instanceof Chest) {
-                                    ((Chest) testDungeon.currentRoom.roomItems.get(selectedItem)).openChest();
-                                } else {
-                                System.out.println(testDungeon.activeCharacter.name + " takes " + testDungeon.currentRoom.roomItems.get(selectedItem));
-                                testDungeon.activeCharacter.addEquipment(testDungeon.currentRoom.roomItems.get(selectedItem));
-                                testDungeon.currentRoom.roomItems.remove(selectedItem);
-                                }
-
-                            } else {
-                                for (Item item : testDungeon.currentRoom.roomItems) {
-
-                                    if (item instanceof Chest) {
-                                        System.out.println("Chest cannot be taken");
-                                    } else {
-                                        testDungeon.activeCharacter.addEquipment(item);
-                                        System.out.println(testDungeon.activeCharacter.name + " takes " + testDungeon.currentRoom.roomItems.get(testDungeon.currentRoom.roomItems.indexOf(item)));
-
-                                    }
-                                }
-                                    for (int i = 0; i < testDungeon.currentRoom.roomItems.size(); i++) {
-                                        if (testDungeon.currentRoom.roomItems.get(i) instanceof Chest) {
-                                            i++;
-                                        } else {
-                                            testDungeon.currentRoom.roomItems.remove(i);
-                                            i--;
-                                        }
-                                    }
-
-                                break;
-                            }
-
-                        } else {
-                            System.out.println(testDungeon.activeCharacter.name + " finds nothing.");
-                            break;
-                        }
-                    } else {
-                        System.out.println(testDungeon.activeCharacter.name + " finds nothing");
-                        break;
-                    }
-
-                    break;
-
-                case "o":
-                    System.out.println("Which door will " + testDungeon.activeCharacter.name + " attempt to open?");
-                    int doorCount = 1;
-                    for (Door door : testDungeon.currentRoom.doors) {
-                        System.out.println(doorCount + ") " + door.type + " door, " + door.locationInRoom);
-                        doorCount++;
-                    }
-
-                    int doorSelection = scanner.nextInt() - 1;
-
-                    testDungeon.currentRoom.doors.get(doorSelection).open();
-            }
-        }
-
-
-        while (testDungeon.currentRoom.activeMonster) {
-            System.out.println("There are monsters in this room! Which will you fight?");
-            for (int i = 0; i < testDungeon.currentRoom.roomMonsters.size(); i++) {
-                System.out.println((i + 1) + ") " + testDungeon.currentRoom.roomMonsters.get(i).name);
-            }
-            System.out.println("Enter the number of the Monster to fight:");
-
-            int monsterSelection = scanner.nextInt();
-
-            if (monsterSelection > testDungeon.currentRoom.roomMonsters.size()) {
-                System.out.println("Invalid Selection, Try Again");
-                System.out.println("There are monsters in this room! Which will you fight?");
-                for (int i = 0; i < testDungeon.currentRoom.roomMonsters.size(); i++) {
-                    System.out.println((i + 1) + ") " + testDungeon.currentRoom.roomMonsters.get(i).name);
-                }
-                System.out.println("Enter the number of the Monster to fight:");
-                monsterSelection = scanner.nextInt();
-            }
-
-            Combat.round(winter, testDungeon.currentRoom.roomMonsters.get(monsterSelection - 1));
-
-        }
 
 
 
 
-        if (!winter.isDead) {
-            door1.open();
-            entranceDoor.exitDungeon();
-        }
+
+
+
+
 
         /*
         while in current room the menu cli should be up allowing a list of options to be selected
