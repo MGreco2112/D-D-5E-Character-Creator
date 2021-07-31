@@ -86,22 +86,5 @@ public class Main {
         testDungeon.startDungeon();
 
 
-
-
-
-
-
-
-
-
-        /*
-        while in current room the menu cli should be up allowing a list of options to be selected
-        these options should return values specific to the contents of that room or of the fields within Character
-            when a room transition occurs
-        exiting the dungeon should be possible, which will bring up a scoring system of some kind
-         */
-
-
-
     }
 }

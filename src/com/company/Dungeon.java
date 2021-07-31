@@ -97,52 +97,9 @@ public class Dungeon {
 
                             if (perceptionCheck >= currentRoom.searchTargetNumber) {
 
-                                currentRoom.hasBeenSearched = true;
+                                searchLogic();
 
-                                System.out.println(activeCharacter.name + " succeeds in finding items!");
-                                System.out.println("Enter the number next to the item to pick it up");
-
-                                for (int i = 0; i < currentRoom.roomItems.size(); i++) {
-                                    System.out.println((i + 1) + ") " + currentRoom.roomItems.get(i));
-                                }
-                                System.out.println("0) Take All");
-                                int selectedItem = scanner.nextInt() - 1;
-
-                                if (selectedItem != -1) {
-                                    if (currentRoom.roomItems.get(selectedItem) instanceof Chest) {
-                                        ((Chest) currentRoom.roomItems.get(selectedItem)).openChest();
-
-                                        if (currentRoom.roomItems.size() <= 0) {
-                                            currentRoom.activeItem = false;
-                                        }
-                                    } else {
-                                        System.out.println(activeCharacter.name + " takes " + currentRoom.roomItems.get(selectedItem));
-                                        activeCharacter.addEquipment(currentRoom.roomItems.get(selectedItem));
-                                        currentRoom.roomItems.remove(selectedItem);
-                                    }
-
-                                } else {
-                                    for (Item item : currentRoom.roomItems) {
-
-                                        if (item instanceof Chest) {
-                                            System.out.println("Chest cannot be taken");
-                                        } else {
-                                            activeCharacter.addEquipment(item);
-                                            System.out.println(activeCharacter.name + " takes " + currentRoom.roomItems.get(currentRoom.roomItems.indexOf(item)));
-
-                                        }
-                                    }
-                                    for (int i = 0; i < currentRoom.roomItems.size(); i++) {
-                                        if (currentRoom.roomItems.get(i) instanceof Chest) {
-                                            i++;
-                                        } else {
-                                            currentRoom.roomItems.remove(i);
-                                            i--;
-                                        }
-                                    }
-
-                                    break;
-                                }
+                                break;
 
                             } else {
                                 System.out.println(activeCharacter.name + " finds nothing.");
@@ -152,49 +109,8 @@ public class Dungeon {
 
                         } else if (currentRoom.activeItem) {
                             System.out.println(activeCharacter.name + " has searched this room before.");
-                            System.out.println("Enter the number next to the item to pick it up");
 
-                            for (int i = 0; i < currentRoom.roomItems.size(); i++) {
-                                System.out.println((i + 1) + ") " + currentRoom.roomItems.get(i));
-                            }
-                            System.out.println("0) Take All");
-                            int selectedItem = scanner.nextInt() - 1;
-
-                            if (selectedItem != -1) {
-                                if (currentRoom.roomItems.get(selectedItem) instanceof Chest) {
-                                    ((Chest) currentRoom.roomItems.get(selectedItem)).openChest();
-
-                                    if (currentRoom.roomItems.size() <= 0) {
-                                        currentRoom.activeItem = false;
-                                    }
-                                } else {
-                                    System.out.println(activeCharacter.name + " takes " + currentRoom.roomItems.get(selectedItem));
-                                    activeCharacter.addEquipment(currentRoom.roomItems.get(selectedItem));
-                                    currentRoom.roomItems.remove(selectedItem);
-                                }
-
-                            } else {
-                                for (Item item : currentRoom.roomItems) {
-
-                                    if (item instanceof Chest) {
-                                        System.out.println("Chest cannot be taken");
-                                    } else {
-                                        activeCharacter.addEquipment(item);
-                                        System.out.println(activeCharacter.name + " takes " + currentRoom.roomItems.get(currentRoom.roomItems.indexOf(item)));
-
-                                    }
-                                }
-                                for (int i = 0; i < currentRoom.roomItems.size(); i++) {
-                                    if (currentRoom.roomItems.get(i) instanceof Chest) {
-                                        i++;
-                                    } else {
-                                        currentRoom.roomItems.remove(i);
-                                        i--;
-                                    }
-                                }
-
-                                break;
-                            }
+                            searchLogic();
 
                         } else {
                             System.out.println(activeCharacter.name + " finds nothing.");
@@ -244,6 +160,57 @@ public class Dungeon {
 
         }
     }
+
+    public void searchLogic() {
+        currentRoom.hasBeenSearched = true;
+        System.out.println(activeCharacter.name + " succeeds in finding items!");
+        System.out.println("Enter the number next to the item to pick it up");
+
+        for (int i = 0; i < currentRoom.roomItems.size(); i++) {
+            System.out.println((i + 1) + ") " + currentRoom.roomItems.get(i));
+        }
+        System.out.println("0) Take All");
+        int selectedItem = scanner.nextInt() - 1;
+
+        if (selectedItem != -1) {
+            if (currentRoom.roomItems.get(selectedItem) instanceof Chest) {
+                ((Chest) currentRoom.roomItems.get(selectedItem)).openChest();
+
+                if (currentRoom.roomItems.size() <= 0) {
+                    currentRoom.activeItem = false;
+                }
+            } else {
+                System.out.println(activeCharacter.name + " takes " + currentRoom.roomItems.get(selectedItem));
+                activeCharacter.addEquipment(currentRoom.roomItems.get(selectedItem));
+                currentRoom.roomItems.remove(selectedItem);
+            }
+
+        } else {
+            for (Item item : currentRoom.roomItems) {
+
+                if (item instanceof Chest) {
+                    System.out.println("Chest cannot be taken");
+                } else {
+                    activeCharacter.addEquipment(item);
+                    System.out.println(activeCharacter.name + " takes " + currentRoom.roomItems.get(currentRoom.roomItems.indexOf(item)));
+
+                }
+            }
+            for (int i = 0; i < currentRoom.roomItems.size(); i++) {
+                if (currentRoom.roomItems.get(i) instanceof Chest) {
+                    i++;
+                } else {
+                    currentRoom.roomItems.remove(i);
+                    i--;
+                }
+            }
+
+
+        }
+
+
+
+}
 
     public void changeCurrentRoom(Room room) {
         currentRoom = room;
