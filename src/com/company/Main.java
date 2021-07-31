@@ -52,10 +52,10 @@ public class Main {
         Room room1 = new Room("Entry Way", "A 20' x 20' cave entrance filled with dripping stalactites. The Way out " +
                 "is to the South, a wooden door stands to the North.", 2,
                 false,false,
-                false, false);
+                false, false, 14);
         Room room2 = new Room("Cave", "A 10' by 50' natural hallway sunken deep into the mountain. A wooden door is " +
                 "to the South.", 1, true, false,
-                false, false);
+                false, false, 0);
 
         room1.addItem(WeaponCollection.mace());
 

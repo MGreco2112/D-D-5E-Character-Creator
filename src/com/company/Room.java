@@ -9,20 +9,24 @@ public class Room {
     public String name;
     public String description;
     public Dungeon dungeon;
+    public int searchTargetNumber;
     public int numberOfDoors;
     public boolean activeMonster;
     public boolean activeItem;
     public boolean activeTrap;
     public boolean activePuzzle;
+    public boolean hasBeenSearched = false;
     public ArrayList<Monster> roomMonsters = new ArrayList<>();
     public ArrayList<Item> roomItems = new ArrayList<>();
     public ArrayList<Door> doors = new ArrayList<>();
 
     public Room(String name, String description, int numberOfDoors, boolean activeMonster, boolean activeItem,
                 boolean activeTrap,
-                boolean activePuzzle) {
+                boolean activePuzzle, int searchTargetNumber) {
         this.name = name;
         this.description = description;
+
+        this.searchTargetNumber = searchTargetNumber;
 
         if (numberOfDoors <= 0) {
             this.numberOfDoors = 1;
@@ -47,6 +51,10 @@ public class Room {
 
         if (item instanceof Chest) {
             ((Chest) item).dungeonRoom = this;
+        }
+
+        if (roomItems.size() != 0) {
+            activeItem = true;
         }
 
         return item.name + " has been added.";
