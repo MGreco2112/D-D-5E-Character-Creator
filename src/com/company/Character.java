@@ -15,6 +15,7 @@ public class Character {
     public int wis;
     public int cha;
     public int hitPoints;
+    public int maxHitPoints;
     public int armorClass;
     public int speed;
     public int profBonus;
@@ -55,6 +56,7 @@ public class Character {
         this.cha = cha;
         stats.add(cha);
         this.hitPoints = hitPoints;
+        this.maxHitPoints = hitPoints + abilityMod(this.con);
         this.armorClass = armorClass;
         this.speed = speed;
         this.gold = gold;
@@ -191,6 +193,16 @@ public class Character {
         } else {
             System.out.println(weapon.name + " does not take ammunition.");
         }
+    }
+
+    public String recoverHealth(int health) {
+        hitPoints += health;
+
+        if (hitPoints >= maxHitPoints) {
+            hitPoints = maxHitPoints;
+        }
+
+        return name + " regains " + health + " Hit Points.\n" + name + " has " + hitPoints + " total Hit Points";
     }
 
     // TODO Finish effect of casting Spell
