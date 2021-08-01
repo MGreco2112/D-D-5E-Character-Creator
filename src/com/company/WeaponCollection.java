@@ -38,7 +38,7 @@ public class WeaponCollection {
     }
 
     public static Weapon mace() {
-        return new Weapon("Mace", false, "", 4, 1, d6);
+        return new Weapon("Mace", false, "-", 4, 1, d6);
     }
 
     public static Weapon quarterstaff() {
@@ -78,7 +78,7 @@ public class WeaponCollection {
     }
 
     public static Weapon flail() {
-        return new Weapon("Flail", false, "", 2, 1, d8);
+        return new Weapon("Flail", false, "-", 2, 1, d8);
     }
 
     public static Weapon glaive() {
@@ -110,7 +110,7 @@ public class WeaponCollection {
     }
 
     public static Weapon morningstar() {
-        return new Weapon("Morningstar", false, "", 4, 1, d8);
+        return new Weapon("Morningstar", false, "-", 4, 1, d8);
     }
 
     public static Weapon pike() {
@@ -134,7 +134,7 @@ public class WeaponCollection {
     }
 
     public static Weapon warPick() {
-        return new Weapon("War Pick", false, "", 2, 1, d8);
+        return new Weapon("War Pick", false, "-", 2, 1, d8);
     }
 
     public static Weapon warhammer() {
