@@ -243,6 +243,7 @@ public class Character {
         isDead = hitPoints <= 0;
         if (isDead) {
             System.out.println(name + " has died. Game over");
+            currentRoom.dungeon.endGame();
         }
     }
 

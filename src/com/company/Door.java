@@ -43,7 +43,7 @@ public class Door {
                 if (dungeon.currentRoom == roomA) {
                     dungeon.changeCurrentRoom(roomB);
                 } else {
-                    dungeon.changeCurrentRoom(roomB);
+                    dungeon.changeCurrentRoom(roomA);
                 }
                 System.out.println(dungeon.activeCharacter.name + " enters the next Room");
                 System.out.println(dungeon.currentRoom.description);

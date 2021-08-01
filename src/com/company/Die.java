@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Die {
-    int numberOfSides;
-    int maxValue;
-    int faceUpValue;
+    public int numberOfSides;
+    public int maxValue;
+    public int faceUpValue;
 
     public Die(int numberOfSides, int maxValue) {
         this.numberOfSides = numberOfSides;
