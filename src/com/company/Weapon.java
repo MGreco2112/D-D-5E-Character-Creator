@@ -16,6 +16,6 @@ public class Weapon extends Item{
 
 
     public String toString() {
-        return name + ": " + properties + ", weight: " + weight + " lbs. Damage: " + numberOfDice + damageCode;
+        return name + ", Properties:" + properties + ", weight: " + weight + " lbs. Damage: " + numberOfDice + damageCode;
     }
 }

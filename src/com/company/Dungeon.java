@@ -47,7 +47,7 @@ public class Dungeon {
     private String getRoomChoice() {
         String choice = "";
 
-        System.out.println("What will " + activeCharacter.name + " do?\n(l)ook\n(s)earch\n(o)pen door");
+        System.out.println("What will " + activeCharacter.name + " do?\n(c)heck menu\n(l)ook\n(s)earch\n(o)pen door");
         if (currentRoom.roomMonsters.size() > 0) {
             System.out.println("(f)ight monster");
         }
@@ -85,6 +85,10 @@ public class Dungeon {
             choice = getRoomChoice();
 
                 switch (choice.toLowerCase(Locale.ROOT)) {
+                    case "c" :
+                        activeCharacter.characterMenu();
+                        break;
+
                     case "l":
                         System.out.println(currentRoom.description);
                         break;
@@ -143,6 +147,10 @@ public class Dungeon {
                             int monsterSelection = getCombatantChoice();
                             while (!currentRoom.roomMonsters.get(monsterSelection-1).isDead) {
                                 Combat.round(activeCharacter, currentRoom.roomMonsters.get(monsterSelection - 1));
+
+                                if (Combat.isFled) {
+                                    break;
+                                }
                             }
 
                             if (currentRoom.roomMonsters.get(monsterSelection-1).isDead) {

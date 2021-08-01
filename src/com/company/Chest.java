@@ -56,4 +56,8 @@ public class Chest extends Item{
             }
         }
     }
+
+    public String toString() {
+        return "Chest";
+    }
 }

@@ -1,12 +1,15 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Scanner;
 
 // TODO add skills section to work with prof bonus and ability modifiers, add spell system mechanics
 
 public class Character {
     public Die d20 = new Die(20,20);
     public Room currentRoom;
+    private final Scanner scanner = new Scanner(System.in);
     public int level;
     public int str;
     public int dex;
@@ -205,6 +208,20 @@ public class Character {
         return name + " regains " + health + " Hit Points.\n" + name + " has " + hitPoints + " total Hit Points";
     }
 
+    public void changeActiveWeapon() {
+        System.out.println("Which Weapon shall " + name + " wield?");
+        for (int i = 0; i < gear.size(); i++) {
+            if (gear.get(i).isWeapon) {
+                System.out.println((i+1) + ") " + gear.get(i).name);
+            }
+        }
+
+        int weaponSelection = scanner.nextInt() - 1;
+
+        readyWeapon((Weapon) gear.get(weaponSelection));
+
+    }
+
     // TODO Finish effect of casting Spell
     public void castSpell(Spell spell, Monster target) {
         if (spell.damageCode != null) {
@@ -245,6 +262,48 @@ public class Character {
             System.out.println(name + " has died. Game over");
             currentRoom.dungeon.endGame();
         }
+    }
+
+    public void characterMenu() {
+
+        String choice = "";
+
+        while (!choice.equals("e")) {
+
+            System.out.println("Select an option:\n(c)heck stats\n(u)se item\n(s)wap active weapon\n(e)xit");
+
+            choice = scanner.nextLine();
+
+            switch (choice.toLowerCase(Locale.ROOT)) {
+                case "c":
+                    System.out.println(this);
+                    break;
+
+                case "u":
+
+                    for (int i = 0; i < gear.size(); i++) {
+                        System.out.println((i + 1) + ") " + gear.get(i).name);
+                    }
+
+                    System.out.println("Usable items aren't coded just yet, thanks for testing!");
+
+                    break;
+
+                case "s":
+                    changeActiveWeapon();
+
+                    break;
+
+                case "e":
+
+                    break;
+
+                default:
+                    System.out.println("Invalid entry, try again.");
+            }
+        }
+
+
     }
 
     public String toString() {

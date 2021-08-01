@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Combat {
 // TODO add cast spell and use item options to combat flow, possibly integrate multi-monster combat
-
+    public static boolean isFled = false;
 
     public static void round(Character player ,Monster encounter) {
         Die d20 = new Die(20,20);
@@ -52,9 +52,13 @@ public class Combat {
 
                 if (attackOfOpportunity >= player.armorClass) {
                     System.out.println("The attempt failed!");
+
                     int damageRoll = (encounter.weapon.damageCode.roll() * encounter.weapon.numberOfDice);
+
                     player.hitPoints -= damageRoll;
+
                     System.out.println(player.name + " takes " + damageRoll + " points of damage");
+
                     player.checkStatus();
                     if (player.isDead) {
                         break;
@@ -65,6 +69,7 @@ public class Combat {
                     break;
                 } else {
                     System.out.println(player.name + " has escaped the encounter!");
+                    isFled = true;
                     break;
                 }
 
@@ -126,16 +131,8 @@ public class Combat {
                 encounterInitiative = d20.roll();
 
                 if (playerInitiative >= encounterInitiative) {
-                    System.out.println("Which Weapon shall " + player.name + " attack with?");
-                    for (int i = 0; i < player.gear.size(); i++) {
-                        if (player.gear.get(i).isWeapon) {
-                            System.out.println((i+1) + ") " + player.gear.get(i).name);
-                        }
-                    }
 
-                    int weaponSelection = scanner.nextInt() - 1;
-
-                    player.readyWeapon((Weapon) player.gear.get(weaponSelection));
+                    player.changeActiveWeapon();
 
                     encounter.attack(encounter.weapon, player);
 
@@ -147,16 +144,8 @@ public class Combat {
                 } else {
                     encounter.attack(encounter.weapon, player);
                     if (!player.isDead) {
-                        System.out.println("Which Weapon shall " + player.name + " attack with?");
-                        for (int i = 0; i < player.gear.size(); i++) {
-                            if (player.gear.get(i).isWeapon) {
-                                System.out.println((i+1) + ") " + player.gear.get(i).name);
-                            }
-                        }
 
-                        int weaponSelection = scanner.nextInt() - 1;
-
-                        player.readyWeapon((Weapon) player.gear.get(weaponSelection));
+                        player.changeActiveWeapon();
 
                         if (!player.isDead && !encounter.isDead) {
                             round(player, encounter);

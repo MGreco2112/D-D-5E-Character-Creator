@@ -1,6 +1,5 @@
 package com.company;
 
-// TODO make another constructor for spells that cause damage
 public class Spell {
     public String name;
     public String school;
@@ -48,6 +47,6 @@ public class Spell {
     }
 
     public String toString() {
-        return name;
+        return name + ((damageCode == null) ? " Non-combative Spell" :" Combative Spell: " + numberOfDice + damageCode);
     }
 }
