@@ -1,9 +1,10 @@
 package com.company.model;
 
+import com.company.services.DiceService;
+
 import java.util.ArrayList;
 
 public class Monster {
-    public Die d20 = new Die(20,20);
     public int hitPoints;
     public int attackBonus;
     public int armorClass;
@@ -39,12 +40,13 @@ public class Monster {
     }
 
 
+    //Some minor tweaks to reduce overhead
     public void attack(Weapon attack, PlayerCharacter target) {
-        int attackRoll = d20.roll() + attackBonus;
-        int flatRoll = d20.faceUpValue;
+        int flatRoll = DiceService.roll_20(); //We get the value of the dice rolled first.
+        int attackRoll = flatRoll + attackBonus; //We modify the output of the first roll and store result here
         if (attackRoll >= target.armorClass && flatRoll != 1 || flatRoll == 20) {
             System.out.println(name + " hits " + target.name + " with " + attack.name + "!");
-            int damageRoll = (weapon.damageCode.roll() * weapon.numberOfDice);
+            int damageRoll = weapon.getDamage(); //Moved this logic into the WeaponClass
             target.hitPoints -= damageRoll;
             System.out.println(target.name + " takes " + damageRoll + " points of damage!");
             target.checkStatus();

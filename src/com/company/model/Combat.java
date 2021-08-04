@@ -1,5 +1,7 @@
 package com.company.model;
 
+import com.company.services.DiceService;
+
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -8,7 +10,6 @@ public class Combat {
     public static boolean isFled = false;
 
     public static void round(PlayerCharacter player , Monster encounter) {
-        Die d20 = new Die(20,20);
         Scanner scanner = new Scanner(System.in);
 
         System.out.println(encounter.name + " stands in your path! What do you want to do?\n(l)ook\n(a)ttack\n(c)" +
@@ -23,8 +24,8 @@ public class Combat {
                 break;
 
             case "a" :
-                int playerInitiative = d20.roll() + player.abilityCheck("dex");
-                int encounterInitiative = d20.roll();
+                int playerInitiative = DiceService.roll_20() + player.abilityCheck("dex");
+                int encounterInitiative = DiceService.roll_20();
 
                 if (playerInitiative >= encounterInitiative) {
                     player.attack(player.readiedWeapon, encounter);
@@ -48,12 +49,12 @@ public class Combat {
             case "r" :
                 System.out.println(player.name + " attempts to flee!");
 
-                int attackOfOpportunity = d20.roll();
+                int attackOfOpportunity = DiceService.roll_20();
 
                 if (attackOfOpportunity >= player.armorClass) {
                     System.out.println("The attempt failed!");
 
-                    int damageRoll = (encounter.weapon.damageCode.roll() * encounter.weapon.numberOfDice);
+                    int damageRoll = ( DiceService.rollType(encounter.weapon.damageCode) * encounter.weapon.numberOfDice);
 
                     player.hitPoints -= damageRoll;
 
@@ -74,8 +75,8 @@ public class Combat {
                 }
 
             case "c" :
-                playerInitiative = d20.roll() + player.abilityCheck("dex");
-                encounterInitiative = d20.roll();
+                playerInitiative = DiceService.roll_20() + player.abilityCheck("dex");
+                encounterInitiative = DiceService.roll_20();
 
                 if (playerInitiative >= encounterInitiative) {
 
@@ -127,8 +128,8 @@ public class Combat {
                 }
 
             case "w":
-                playerInitiative = d20.roll() + player.abilityCheck("dex");
-                encounterInitiative = d20.roll();
+                playerInitiative = DiceService.roll_20() + player.abilityCheck("dex");
+                encounterInitiative = DiceService.roll_20();
 
                 if (playerInitiative >= encounterInitiative) {
 

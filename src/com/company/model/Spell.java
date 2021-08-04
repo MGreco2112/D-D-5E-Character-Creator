@@ -1,12 +1,13 @@
 package com.company.model;
 
 import com.company.model.Die;
+import com.company.services.DiceService;
 
 public class Spell {
     public String name;
     public String school;
     public String components;
-    public Die damageCode;
+    public DiceType damageCode; //Modified to Enum, see DiceType for details
     public int rollBonus;
     public int numberOfDice;
     public int level;
@@ -29,7 +30,7 @@ public class Spell {
     }
 
     public Spell(String name, int level, String school, int castingTime, int range, String components, int duration,
-                 int numberOfDice, Die damageCode, int rollBonus) {
+                 int numberOfDice, DiceType damageCode, int rollBonus) {
         this.name = name;
         this.level = level;
         this.school = school;
@@ -42,10 +43,14 @@ public class Spell {
         this.rollBonus = rollBonus;
     }
 
+    //Removed new instance of d20 and utilized new Dice Service.
     public int effect() {
-        Die d20 = new Die(20,20);
+        return DiceService.roll_20();
+    }
 
-        return d20.roll();
+    //Moved damage logic here.
+    public int getDamage(){
+        return (DiceService.rollType(this.damageCode) * this.numberOfDice) + this.rollBonus;
     }
 
     public String toString() {

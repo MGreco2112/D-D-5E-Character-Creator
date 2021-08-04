@@ -1,5 +1,8 @@
 package com.company.model;
 
+import com.company.services.DiceService;
+import com.company.services.SpellService;
+
 import java.util.*;
 
 // TODO add skills section to work with prof bonus and ability modifiers, add spell system mechanics
@@ -8,17 +11,10 @@ import java.util.*;
  * Java class which models a DnD character.
  */
 public class PlayerCharacter {
-    public Die d20 = new Die(20,20);
     public Room currentRoom;
     private final Scanner scanner = new Scanner(System.in);
 
     public int level;
-    public int str;
-    public int dex;
-    public int con;
-    public int intel;
-    public int wis;
-    public int cha;
     public int hitPoints;
     public int maxHitPoints;
     public int armorClass;
@@ -37,11 +33,16 @@ public class PlayerCharacter {
 
     public List<Spell> spells = new ArrayList<>();
     public List<Item> gear = new ArrayList<>();
-    public List<Integer> stats = new ArrayList<>();
     public List<String> proficiencies = new ArrayList<>();
     public List<String> proficientSkills = new ArrayList<>();
 
-    private Map<Integer,Integer> abilityModifierMap = new HashMap<>();
+    //Changed to private, since we are using ability check to get values
+    private Map<PlayerStat, Integer> stats = new HashMap<>();
+    private static Map<Integer,Integer> abilityModifierMap; //Made static as all players will use same modifier spread
+
+    static {
+        abilityModifierMap = populateAbilityModifiers();
+    }
 
 
     public PlayerCharacter(String name, String classLevel, int level, int str, int dex, int con, int intel, int wis, int cha,
@@ -52,20 +53,15 @@ public class PlayerCharacter {
         this.name = name;
         this.classLevel = classLevel;
         this.level = level;
-        this.str = str;
-        stats.add(str);
-        this.dex = dex;
-        stats.add(dex);
-        this.con = con;
-        stats.add(con);
-        this.intel = intel;
-        stats.add(intel);
-        this.wis = wis;
-        stats.add(wis);
-        this.cha = cha;
-        stats.add(cha);
+        this.stats = new HashMap<>();
+        stats.put(PlayerStat.STR,str);
+        stats.put(PlayerStat.DEX,dex);
+        stats.put(PlayerStat.CON,con);
+        stats.put(PlayerStat.INT,intel);
+        stats.put(PlayerStat.WIS,wis);
+        stats.put(PlayerStat.CHA,cha);
         this.hitPoints = hitPoints;
-        this.maxHitPoints = hitPoints + abilityMod(this.con);
+        this.maxHitPoints = hitPoints + abilityMod(stats.get(PlayerStat.CON));
         this.armorClass = armorClass;
         this.speed = speed;
         this.gold = gold;
@@ -75,6 +71,58 @@ public class PlayerCharacter {
         this.isRogue = isRogue;
         this.alignment = alignment;
         abilityModifierMap = populateAbilityModifiers();
+    }
+
+    public PlayerCharacter(String name, String classLevel, int level, int hitPoints,
+                           int armorClass, int speed, int profBonus, int gold, boolean isArcane, boolean isDivine,
+                           boolean isRogue,
+                           String alignment) {
+        this.name = name;
+        this.classLevel = classLevel;
+        this.level = level;
+        this.stats = rollStats();
+        this.hitPoints = hitPoints;
+        this.maxHitPoints = hitPoints + abilityMod(stats.get(PlayerStat.CON));
+        this.armorClass = armorClass;
+        this.speed = speed;
+        this.gold = gold;
+        this.profBonus = profBonus;
+        this.isArcane = isArcane;
+        this.isDivine = isDivine;
+        this.isRogue = isRogue;
+        this.alignment = alignment;
+        abilityModifierMap = populateAbilityModifiers();
+    }
+
+    private Map<PlayerStat,Integer> rollStats() {
+        Map<PlayerStat,Integer> map = new HashMap<>();
+        for(PlayerStat s: PlayerStat.values()){
+            map.put(s,rollStat());
+        }
+        return map;
+    }
+
+    private int rollStat(){
+        ArrayList<Integer> statArray = new ArrayList<>();
+
+        while (statArray.size() <= 3) {
+            Random random = new Random();
+
+            statArray.add(random.nextInt(6) + 1);
+        }
+
+
+        int min = statArray.get(0);
+
+        for (int i = 0; i < statArray.size(); i++) {
+            if (statArray.get(i) <= min) {
+                min = statArray.get(i);
+            }
+
+        }
+
+        statArray.remove(statArray.indexOf(min));
+        return statArray.get(0) + statArray.get(1) + statArray.get(2);
     }
 
     public String addSpell(Spell spell) {
@@ -106,39 +154,39 @@ public class PlayerCharacter {
     }
 
     public int abilityCheck(String ability) {
-        int abilityCheck = d20.roll();
+        int abilityCheck = DiceService.get("d20").roll();
         int abilityScore = 0;
 
         switch (ability){
             case "str":
             case "Strength":
             case "strength":
-                abilityScore = str;
+                abilityScore = stats.get(PlayerStat.STR);
                 break;
             case "dex":
             case "Dexterity":
             case "dexterity":
-                abilityScore = dex;
+                abilityScore = stats.get(PlayerStat.DEX);
                 break;
             case "con":
             case "Constitution":
             case "constitution":
-                abilityScore = con;
+                abilityScore = stats.get(PlayerStat.CON);
                 break;
             case "int":
             case "Intelligence":
             case "intelligence":
-                abilityScore = intel;
+                abilityScore = stats.get(PlayerStat.INT);
                 break;
             case "wis":
             case "Wisdom":
             case "wisdom":
-                abilityScore = wis;
+                abilityScore = stats.get(PlayerStat.WIS);
                 break;
             case "cha":
             case "Charisma":
             case "charisma":
-                abilityScore = cha;
+                abilityScore = stats.get(PlayerStat.CHA);
                 break;
 
         }
@@ -156,7 +204,7 @@ public class PlayerCharacter {
      * Method to pre-populate modifiers associated with each ability score value from 1 - 30
      * @return map of modifiers
      */
-    private Map<Integer,Integer> populateAbilityModifiers(){
+    private static Map<Integer,Integer> populateAbilityModifiers(){
         Map<Integer,Integer> abilityMap = new HashMap<>();
         int change = -5;
         int step = 0;
@@ -185,15 +233,15 @@ public class PlayerCharacter {
 
     public void attack(Weapon weapon, Monster enemy) {
         if (gear.contains(weapon)) {
-            int attackRoll = d20.roll();
-            int flatRoll = d20.faceUpValue;
+            int attackRoll = DiceService.get("d20").roll();
+            int flatRoll = DiceService.get("d20").faceUpValue;
                 if (proficiencies.contains(weapon.name)) {
                     attackRoll += profBonus;
                     System.out.println(attackRoll + " is rolled against " + enemy.name + "'s armor class.");
                 }
                 if (attackRoll >= enemy.armorClass && flatRoll != 1 || flatRoll == 20) {
                     System.out.println(name + " hits with " + weapon.name + "!");
-                    int damageRoll = (weapon.damageCode.roll() * weapon.numberOfDice);
+                    int damageRoll = weapon.getDamage();
                     enemy.hitPoints -= damageRoll;
                     System.out.println(damageRoll + " points of damage dealt to " + enemy.name);
                     enemy.checkStatus();
@@ -249,15 +297,15 @@ public class PlayerCharacter {
             int spellRoll = spell.effect();
 
             if (isArcane) {
-                spellRoll += abilityMod(intel);
+                spellRoll += abilityMod(stats.get(PlayerStat.INT));
             } else if (isDivine) {
-                spellRoll += abilityMod(wis);
+                spellRoll += abilityMod(stats.get(PlayerStat.WIS));
             }
 
             System.out.println(name + " casts " + spell.name + " at " + target.name + "!\nRoll: " + spellRoll);
 
             if (spellRoll >= target.armorClass) {
-                int damageRoll = (spell.damageCode.roll() * spell.numberOfDice) + spell.rollBonus;
+                int damageRoll = spell.getDamage(); //Moved damage logic into spell class
 
                 System.out.println("Hit!\n" + spell.name + " deals " + damageRoll + " points of damage to " + target.name +
                         "!");
