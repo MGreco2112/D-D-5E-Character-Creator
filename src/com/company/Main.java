@@ -1,6 +1,8 @@
 package com.company;
 
-import java.util.Locale;
+import com.company.model.*;
+import com.company.model.Character;
+
 import java.util.Scanner;
 
 public class Main {

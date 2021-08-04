@@ -1,6 +1,9 @@
-package com.company;
+package com.company.model;
 
-public class Weapon extends Item{
+import com.company.model.Die;
+import com.company.model.Item;
+
+public class Weapon extends Item {
     public Die damageCode;
     public int numberOfDice;
     public boolean takesAmmo;

@@ -1,4 +1,4 @@
-package com.company;
+package com.company.model;
 
 public class Gear extends Item{
     public int qty;

@@ -1,4 +1,4 @@
-package com.company;
+package com.company.model;
 
 public class WeaponCollection {
     public static Die dPercent = new Die(100, 100);
