@@ -45,6 +45,12 @@ public class Die {
         return faceUpValue;
     }
 
+
+    /*
+    I have deprecated this method, as it doesn't make use of the existing roll logic in this class
+    I am moving this logic to the PlayerCharacter.java class
+     */
+    @Deprecated
     public static int rollStats() {
         ArrayList<Integer> statArray = new ArrayList<>();
 

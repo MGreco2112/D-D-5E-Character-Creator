@@ -1,11 +1,10 @@
 package com.company.model;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 // TODO Create a dungeon Room that can possibly contain a Monster, Item(s), Puzzle(s), *Trap(s)
 public class Room {
-    private Scanner scanner = new Scanner(System.in);
+    //Removed scanner as scanner wasn't used. HOWEVER. In the future we should pass the scanner into the constructor
     public String name;
     public String description;
     public Dungeon dungeon;
@@ -44,6 +43,20 @@ public class Room {
         roomMonsters.add(monster);
 
         return monster.name + " has been added.";
+    }
+
+    /**
+     * Allows you to add multiples of the same monster to a room
+     * @param monster the monster
+     * @param count how many to add
+     * @return
+     */
+    public String addMonster(Monster monster, int count){
+        for(int i = 0; i<count; i++){
+            roomMonsters.add(monster);
+        }
+
+        return count+" number of "+monster.name + " has been added.";
     }
 
     public String addItem(Item item) {
