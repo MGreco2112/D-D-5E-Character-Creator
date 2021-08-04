@@ -1,4 +1,4 @@
-package com.company;
+package com.company.model;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -9,7 +9,7 @@ public class Dungeon {
     public boolean isGameRunning;
     public String name;
     public Room currentRoom;
-    public Character activeCharacter;
+    public PlayerCharacter activeCharacter;
     private final Scanner scanner = new Scanner(System.in);
     public ArrayList<Room> rooms = new ArrayList<>();
 
@@ -30,7 +30,7 @@ public class Dungeon {
         }
     }
 
-    public void addCharacter(Character character) {
+    public void addCharacter(PlayerCharacter character) {
         this.activeCharacter = character;
         System.out.println(character.name + " has been placed at the start of the Dungeon.");
     }

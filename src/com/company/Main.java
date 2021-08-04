@@ -1,6 +1,9 @@
 package com.company;
 
-import java.util.Locale;
+
+import com.company.model.*;
+
+import java.lang.Character;
 import java.util.Scanner;
 
 public class Main {
@@ -23,7 +26,7 @@ public class Main {
         Spell magic_missile = new Spell("Magic Missile", 1, "Evocation", 1, 120, "V, S", 0, 4, d4, 1);
 
 
-        Character winter = new Character("Winter", "Bard", 1, Die.rollStats(), Die.rollStats(), Die.rollStats(),
+        PlayerCharacter winter = new PlayerCharacter("Winter", "Bard", 1, Die.rollStats(), Die.rollStats(), Die.rollStats(),
                 Die.rollStats()
         , Die.rollStats(), Die.rollStats(), 8, 12, 30, 2, 0, true, false, true,
                 "Lawful Neutral");

@@ -1,15 +1,17 @@
-package com.company;
+package com.company.model;
 
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 // TODO add skills section to work with prof bonus and ability modifiers, add spell system mechanics
 
-public class Character {
+/**
+ * Java class which models a DnD character.
+ */
+public class PlayerCharacter {
     public Die d20 = new Die(20,20);
     public Room currentRoom;
     private final Scanner scanner = new Scanner(System.in);
+
     public int level;
     public int str;
     public int dex;
@@ -32,17 +34,21 @@ public class Character {
     public String name;
     public String classLevel;
     public Weapon readiedWeapon;
-    ArrayList<Spell> spells = new ArrayList<>();
-    ArrayList<Item> gear = new ArrayList<>();
-    ArrayList<Integer> stats = new ArrayList<>();
-    ArrayList<String> proficiencies = new ArrayList<>();
-    ArrayList<String> proficientSkills = new ArrayList<>();
 
-    public Character(String name, String classLevel, int level, int str, int dex, int con, int intel, int wis, int cha,
-                     int hitPoints,
-                     int armorClass, int speed, int profBonus, int gold, boolean isArcane, boolean isDivine,
-                     boolean isRogue,
-                     String alignment) {
+    public List<Spell> spells = new ArrayList<>();
+    public List<Item> gear = new ArrayList<>();
+    public List<Integer> stats = new ArrayList<>();
+    public List<String> proficiencies = new ArrayList<>();
+    public List<String> proficientSkills = new ArrayList<>();
+
+    private Map<Integer,Integer> abilityModifierMap = new HashMap<>();
+
+
+    public PlayerCharacter(String name, String classLevel, int level, int str, int dex, int con, int intel, int wis, int cha,
+                           int hitPoints,
+                           int armorClass, int speed, int profBonus, int gold, boolean isArcane, boolean isDivine,
+                           boolean isRogue,
+                           String alignment) {
         this.name = name;
         this.classLevel = classLevel;
         this.level = level;
@@ -68,6 +74,7 @@ public class Character {
         this.isDivine = isDivine;
         this.isRogue = isRogue;
         this.alignment = alignment;
+        abilityModifierMap = populateAbilityModifiers();
     }
 
     public String addSpell(Spell spell) {
@@ -102,18 +109,38 @@ public class Character {
         int abilityCheck = d20.roll();
         int abilityScore = 0;
 
-        if (ability.equals("str") || ability.equals("Strength") || ability.equals("strength")) {
-            abilityScore = str;
-        } else if (ability.equals("dex") || ability.equals("Dexterity") || ability.equals("dexterity")) {
-            abilityScore = dex;
-        } else if (ability.equals("con") || ability.equals("Constitution") || ability.equals("constitution")) {
-            abilityScore = con;
-        } else if (ability.equals("int") || ability.equals("Intelligence") || ability.equals("intelligence")) {
-            abilityScore = intel;
-        } else if (ability.equals("wis") || ability.equals("Wisdom") || ability.equals("wisdom")) {
-            abilityScore = wis;
-        } else if (ability.equals("cha") || ability.equals("Charisma") || ability.equals("charisma")) {
-            abilityScore = cha;
+        switch (ability){
+            case "str":
+            case "Strength":
+            case "strength":
+                abilityScore = str;
+                break;
+            case "dex":
+            case "Dexterity":
+            case "dexterity":
+                abilityScore = dex;
+                break;
+            case "con":
+            case "Constitution":
+            case "constitution":
+                abilityScore = con;
+                break;
+            case "int":
+            case "Intelligence":
+            case "intelligence":
+                abilityScore = intel;
+                break;
+            case "wis":
+            case "Wisdom":
+            case "wisdom":
+                abilityScore = wis;
+                break;
+            case "cha":
+            case "Charisma":
+            case "charisma":
+                abilityScore = cha;
+                break;
+
         }
 
         abilityCheck += abilityMod(abilityScore);
@@ -121,41 +148,35 @@ public class Character {
         return abilityCheck;
     }
 
-    private int abilityMod(int abilityScore) {
-        int abilityModifier = 0;
+    /*
+    Replaced conditional structure with a map for better readability
+     */
 
-        if (abilityScore == 1) {
-            abilityModifier -= 5;
-        } else if (abilityScore <= 3) {
-            abilityModifier -=4;
-        } else if (abilityScore <= 5) {
-            abilityModifier -= 3;
-        } else if (abilityScore <= 7) {
-            abilityModifier -= 2;
-        } else if (abilityScore <= 9) {
-            abilityModifier -= 1;
-        } else if (abilityScore <= 11) {
-            abilityModifier += 0;
-        } else if (abilityScore <= 13) {
-            abilityModifier += 1;
-        } else if (abilityScore <= 15) {
-            abilityModifier += 2;
-        } else if (abilityScore <= 17) {
-            abilityModifier += 3;
-        } else if (abilityScore <= 19) {
-            abilityModifier += 4;
-        } else if (abilityScore <= 21) {
-            abilityModifier += 5;
-        } else if (abilityScore <= 23) {
-            abilityModifier += 6;
-        } else if (abilityScore <= 25) {
-            abilityModifier += 7;
-        } else if (abilityScore <= 27) {
-            abilityModifier += 8;
-        } else if (abilityScore <= 29) {
-            abilityModifier += 9;
-        } else if (abilityScore == 30) {
-            abilityModifier += 10;
+    /**
+     * Method to pre-populate modifiers associated with each ability score value from 1 - 30
+     * @return map of modifiers
+     */
+    private Map<Integer,Integer> populateAbilityModifiers(){
+        Map<Integer,Integer> abilityMap = new HashMap<>();
+        int change = -5;
+        int step = 0;
+        for(int i = 1; i <= 30; i++){
+            if(step>1){
+                change++;
+                step = 0;
+            }
+            abilityMap.put(i,change);
+            step++;
+        }
+        return abilityMap;
+    }
+
+    private int abilityMod(int abilityScore) {
+        Integer abilityModifier = abilityModifierMap.get(abilityScore);
+
+        if(abilityModifier==null){
+            System.out.println("Invalid Ability Modifier!");
+            return 0;
         }
 
         return abilityModifier;

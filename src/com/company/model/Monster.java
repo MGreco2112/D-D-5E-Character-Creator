@@ -1,4 +1,4 @@
-package com.company;
+package com.company.model;
 
 import java.util.ArrayList;
 
@@ -39,7 +39,7 @@ public class Monster {
     }
 
 
-    public void attack(Weapon attack, Character target) {
+    public void attack(Weapon attack, PlayerCharacter target) {
         int attackRoll = d20.roll() + attackBonus;
         int flatRoll = d20.faceUpValue;
         if (attackRoll >= target.armorClass && flatRoll != 1 || flatRoll == 20) {
