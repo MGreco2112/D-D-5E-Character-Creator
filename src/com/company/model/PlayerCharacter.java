@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Java class which models a DnD character.
  */
-public class Character {
+public class PlayerCharacter {
     public Die d20 = new Die(20,20);
     public Room currentRoom;
     private final Scanner scanner = new Scanner(System.in);
@@ -35,20 +35,20 @@ public class Character {
     public String classLevel;
     public Weapon readiedWeapon;
 
-    List<Spell> spells = new ArrayList<>();
-    List<Item> gear = new ArrayList<>();
-    List<Integer> stats = new ArrayList<>();
-    List<String> proficiencies = new ArrayList<>();
-    List<String> proficientSkills = new ArrayList<>();
+    public List<Spell> spells = new ArrayList<>();
+    public List<Item> gear = new ArrayList<>();
+    public List<Integer> stats = new ArrayList<>();
+    public List<String> proficiencies = new ArrayList<>();
+    public List<String> proficientSkills = new ArrayList<>();
 
     private Map<Integer,Integer> abilityModifierMap = new HashMap<>();
 
 
-    public Character(String name, String classLevel, int level, int str, int dex, int con, int intel, int wis, int cha,
-                     int hitPoints,
-                     int armorClass, int speed, int profBonus, int gold, boolean isArcane, boolean isDivine,
-                     boolean isRogue,
-                     String alignment) {
+    public PlayerCharacter(String name, String classLevel, int level, int str, int dex, int con, int intel, int wis, int cha,
+                           int hitPoints,
+                           int armorClass, int speed, int profBonus, int gold, boolean isArcane, boolean isDivine,
+                           boolean isRogue,
+                           String alignment) {
         this.name = name;
         this.classLevel = classLevel;
         this.level = level;

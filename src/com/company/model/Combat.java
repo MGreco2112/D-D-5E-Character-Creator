@@ -7,7 +7,7 @@ public class Combat {
 // TODO add cast spell and use item options to combat flow, possibly integrate multi-monster combat
     public static boolean isFled = false;
 
-    public static void round(Character player , Monster encounter) {
+    public static void round(PlayerCharacter player , Monster encounter) {
         Die d20 = new Die(20,20);
         Scanner scanner = new Scanner(System.in);
 
