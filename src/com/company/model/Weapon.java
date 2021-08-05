@@ -1,7 +1,5 @@
 package com.company.model;
 
-import com.company.model.Die;
-import com.company.model.Item;
 
 public class Weapon extends Item {
     public Die damageCode;
