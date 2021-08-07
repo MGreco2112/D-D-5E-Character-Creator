@@ -19,6 +19,7 @@ public class Main {
         Die d6 = new Die(6,6);
         Die d4 = new Die(4,4);
         Die d2 = new Die(2,2);
+        String[] abilities = {"Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"};
         List<Integer> unselectedStats = new ArrayList<>();
         Map<String, Integer> selectedStats = new HashMap<>();
 
@@ -62,17 +63,50 @@ public class Main {
 
         //Add ability to set hashMap keys as Ability Score Names and set values as chosen by the player
 
+        while (selectedStats.size() < 6) {
+            System.out.println("Which Stat Value would you like to assign to which Stat?");
+
+            for (int i = 0; i < unselectedStats.size(); i++) {
+                System.out.println((i+1) + ") " + unselectedStats.get(i));
+            }
+
+            for (int i = 0; i < abilities.length; i++) {
+                if (abilities[i] != null) {
+                    System.out.println((i + 1) + ") " + abilities[i]);
+                }
+            }
+
+            System.out.println("Enter the number next to the stat total: ");
+
+            String statSel = scanner.nextLine();
+
+            System.out.println("And enter the number next to the Ability Name you want to assign the value to: ");
+
+            String abilitySel = scanner.nextLine();
+
+            selectedStats.put(abilities[Integer.parseInt(abilitySel) - 1],
+                    unselectedStats.get(Integer.parseInt(statSel) - 1));
+
+            unselectedStats.remove(Integer.parseInt(statSel) - 1);
+            abilities[Integer.parseInt(abilitySel) - 1] = null;
+
+        }
+
+        for (String abilityScore : selectedStats.keySet()) {
+            System.out.println("These are your character's ability scores:\n" + abilityScore + ": " + selectedStats.get(abilityScore));
+        }
+
 
 
 
 
 
         PlayerCharacter currentPlayer = new PlayerCharacter(name, playerClass, Integer.parseInt(startingLevel),
-                Die.rollStats(),
-                Die.rollStats(),
-                Die.rollStats(),
-                Die.rollStats()
-        , Die.rollStats(), Die.rollStats(), 8, 12, 30, 2, 0, true, false, true,
+                selectedStats.get("Strength"),
+                selectedStats.get("Dexterity"),
+                selectedStats.get("Constitution"),
+                selectedStats.get("Intelligence")
+        , selectedStats.get("Wisdom"), selectedStats.get("Charisma"), 8, 12, 30, 2, 0, true, false, true,
                 "Lawful Neutral");
 
 
