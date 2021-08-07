@@ -4,7 +4,7 @@ package com.company;
 import com.company.model.*;
 
 import java.lang.Character;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -19,6 +19,8 @@ public class Main {
         Die d6 = new Die(6,6);
         Die d4 = new Die(4,4);
         Die d2 = new Die(2,2);
+        List<Integer> unselectedStats = new ArrayList<>();
+        Map<String, Integer> selectedStats = new HashMap<>();
 
 
         Gear clothes = new Gear("Common Clothes", "Tunic; gray", 3);
@@ -26,7 +28,49 @@ public class Main {
         Spell magic_missile = new Spell("Magic Missile", 1, "Evocation", 1, 120, "V, S", 0, 4, d4, 1);
 
 
-        PlayerCharacter winter = new PlayerCharacter("Winter", "Bard", 1, Die.rollStats(), Die.rollStats(), Die.rollStats(),
+        System.out.println("Enter a character name: ");
+
+        String name = scanner.nextLine();
+
+        System.out.println("Enter a Class: ");
+
+        String playerClass = scanner.nextLine();
+
+        System.out.println("Enter your starting Level Number: ");
+
+        String startingLevel = scanner.nextLine();
+
+        String decision;
+
+        do {
+
+            System.out.println("These are your character's Ability Scores: ");
+
+            while (unselectedStats.size() < 6) {
+                unselectedStats.add(Die.rollStats());
+            }
+
+            for (int i = 0; i < unselectedStats.size(); i++) {
+                System.out.println((i + 1) + ") " + unselectedStats.get(i));
+            }
+
+            System.out.println("Would you like to roll again?\n(y)es or (n)o");
+
+            decision = scanner.nextLine();
+
+        } while (!decision.toLowerCase(Locale.ROOT).equals("y"));
+
+        //Add ability to set hashMap keys as Ability Score Names and set values as chosen by the player
+
+
+
+
+
+
+        PlayerCharacter currentPlayer = new PlayerCharacter(name, playerClass, Integer.parseInt(startingLevel),
+                Die.rollStats(),
+                Die.rollStats(),
+                Die.rollStats(),
                 Die.rollStats()
         , Die.rollStats(), Die.rollStats(), 8, 12, 30, 2, 0, true, false, true,
                 "Lawful Neutral");
@@ -34,15 +78,15 @@ public class Main {
 
 
 
-        winter.addEquipment(WeaponCollection.dagger());
-        winter.addEquipment(clothes);
-        winter.readyWeapon((Weapon) winter.gear.get(0));
-        winter.addProficiency("Dagger");
-        winter.addProficiency("Mace");
-        winter.addSpell(mage_hand);
-        winter.addSpell(magic_missile);
+        currentPlayer.addEquipment(WeaponCollection.dagger());
+        currentPlayer.addEquipment(clothes);
+        currentPlayer.readyWeapon((Weapon) currentPlayer.gear.get(0));
+        currentPlayer.addProficiency("Dagger");
+        currentPlayer.addProficiency("Mace");
+        currentPlayer.addSpell(mage_hand);
+        currentPlayer.addSpell(magic_missile);
 
-        System.out.println(winter);
+        System.out.println(currentPlayer);
 
         Monster goblin = new Monster("Goblin", "Ugly, Green, Hooked nose, Angry", 5, 12, 2, WeaponCollection.club()
         , 500);
@@ -84,7 +128,7 @@ public class Main {
         room2.addMonster(goblin);
 
 
-        testDungeon.addCharacter(winter);
+        testDungeon.addCharacter(currentPlayer);
 
         testDungeon.startDungeon();
 
