@@ -35,7 +35,7 @@ public class Dungeon {
         System.out.println(character.name + " has been placed at the start of the Dungeon.");
     }
 
-    //TODO get this working with moving rooms
+
     public void startDungeon() {
         isGameRunning = true;
         currentRoom = rooms.get(0);
@@ -154,6 +154,7 @@ public class Dungeon {
                             }
 
                             if (currentRoom.roomMonsters.get(monsterSelection-1).isDead) {
+                                activeCharacter.gainExperience(currentRoom.roomMonsters.get(monsterSelection-1));
                                 currentRoom.roomMonsters.remove(monsterSelection-1);
                             }
 
@@ -218,7 +219,7 @@ public class Dungeon {
 
 
 
-}
+    }
 
     public void changeCurrentRoom(Room room) {
         currentRoom = room;

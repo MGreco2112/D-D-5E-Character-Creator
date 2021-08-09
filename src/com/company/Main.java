@@ -43,6 +43,7 @@ public class Main {
 
         String decision;
 
+
         do {
 
             System.out.println("These are your character's Ability Scores: ");
@@ -59,7 +60,11 @@ public class Main {
 
             decision = scanner.nextLine();
 
-        } while (!decision.toLowerCase(Locale.ROOT).equals("y"));
+            if (decision.toLowerCase(Locale.ROOT).equals("y")) {
+                unselectedStats.clear();
+            }
+
+        } while (decision.toLowerCase(Locale.ROOT).equals("y"));
 
         //Add ability to set hashMap keys as Ability Score Names and set values as chosen by the player
 
@@ -92,13 +97,26 @@ public class Main {
 
         }
 
+        //TODO fix this so the first part of the println is outside the loop, then everything after newline character
         for (String abilityScore : selectedStats.keySet()) {
             System.out.println("These are your character's ability scores:\n" + abilityScore + ": " + selectedStats.get(abilityScore));
         }
 
+        System.out.println("Enter starting Hit Point total: ");
 
+        String hitPoints = scanner.nextLine();
 
+        System.out.println("Enter your Armor Class: ");
 
+        String armorClass = scanner.nextLine();
+
+        System.out.println("Enter your Speed in feet per action: ");
+
+        String speed = scanner.nextLine();
+
+        System.out.println("Enter your Alignment: ");
+
+        String alignment = scanner.nextLine();
 
 
         PlayerCharacter currentPlayer = new PlayerCharacter(name, playerClass, Integer.parseInt(startingLevel),
@@ -106,8 +124,10 @@ public class Main {
                 selectedStats.get("Dexterity"),
                 selectedStats.get("Constitution"),
                 selectedStats.get("Intelligence")
-        , selectedStats.get("Wisdom"), selectedStats.get("Charisma"), 8, 12, 30, 2, 0, true, false, true,
-                "Lawful Neutral");
+        , selectedStats.get("Wisdom"), selectedStats.get("Charisma"), Integer.parseInt(hitPoints),
+                Integer.parseInt(armorClass), Integer.parseInt(speed), 2,
+                0, true, false, true,
+                alignment);
 
 
 

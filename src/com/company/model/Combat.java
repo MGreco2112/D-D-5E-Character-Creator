@@ -4,7 +4,7 @@ import java.util.Locale;
 import java.util.Scanner;
 
 public class Combat {
-// TODO add cast spell and use item options to combat flow, possibly integrate multi-monster combat
+// TODO add use item options to combat flow, possibly integrate multi-monster combat
     public static boolean isFled = false;
 
     public static void round(PlayerCharacter player , Monster encounter) {
