@@ -84,9 +84,9 @@ public class Combat {
                         for (int i = 0; i < player.spells.size(); i++) {
                             System.out.println((i + 1) + ") " + player.spells.get(i));
                         }
-                        int input = scanner.nextInt();
+                        String input = scanner.nextLine();
 
-                        player.castSpell(player.spells.get(input - 1), encounter);
+                        player.castSpell(player.spells.get(Integer.parseInt(input) - 1), encounter);
 
                         encounter.checkStatus();
 
@@ -111,9 +111,9 @@ public class Combat {
                             for (int i = 0; i < player.spells.size(); i++) {
                                 System.out.println((i + 1) + ") " + player.spells.get(i));
                             }
-                            int input = scanner.nextInt();
+                            String input = scanner.nextLine();
 
-                            player.castSpell(player.spells.get(input - 1), encounter);
+                            player.castSpell(player.spells.get(Integer.parseInt(input) - 1), encounter);
 
                             round(player, encounter);
                             break;

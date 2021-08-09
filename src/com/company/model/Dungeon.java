@@ -55,8 +55,8 @@ public class Dungeon {
         return choice;
     }
 
-    private int getCombatantChoice() {
-        int monsterSelection;
+    private String getCombatantChoice() {
+        String monsterSelection;
 
         do {
             System.out.println("There are monsters in this room! Which will you fight?");
@@ -65,13 +65,13 @@ public class Dungeon {
             }
             System.out.println("Enter the number of the Monster to fight:");
 
-            monsterSelection = scanner.nextInt();
+            monsterSelection = scanner.nextLine();
 
-            if (monsterSelection < (currentRoom.roomMonsters.size()) -1) {
+            if (Integer.parseInt(monsterSelection) < (currentRoom.roomMonsters.size()) -1) {
                 System.out.println("Invalid entry, please try again");
             }
 
-        } while (monsterSelection < (currentRoom.roomMonsters.size()) -1);
+        } while (Integer.parseInt(monsterSelection) < (currentRoom.roomMonsters.size()) -1);
 
         return monsterSelection;
     }
@@ -124,19 +124,26 @@ public class Dungeon {
                         break;
 
                     case "o":
-                        System.out.println("Which door will " + activeCharacter.name + " attempt to open?");
-                        int doorCount = 1;
-                        for (Door door : currentRoom.doors) {
-                            System.out.println(doorCount + ") " + door.type + " door, " + door.locationInRoom);
-                            doorCount++;
-                        }
 
-                        int doorSelection = scanner.nextInt() - 1;
+                        String doorSelection;
 
-                        if (currentRoom.doors.get(doorSelection).isEntrance) {
-                            currentRoom.doors.get(doorSelection).exitDungeon();
+                        do {
+
+                            System.out.println("Which door will " + activeCharacter.name + " attempt to open?");
+                            int doorCount = 1;
+                            for (Door door : currentRoom.doors) {
+                                System.out.println(doorCount + ") " + door.type + " door, " + door.locationInRoom);
+                                doorCount++;
+                            }
+
+                            doorSelection = scanner.nextLine();
+
+                        } while (Integer.parseInt(doorSelection) > 0 && Integer.parseInt(doorSelection) <= currentRoom.doors.size());
+
+                        if (currentRoom.doors.get(Integer.parseInt(doorSelection) - 1).isEntrance) {
+                            currentRoom.doors.get(Integer.parseInt(doorSelection) - 1).exitDungeon();
                         } else {
-                            currentRoom.doors.get(doorSelection).open();
+                            currentRoom.doors.get(Integer.parseInt(doorSelection) - 1).open();
                         }
 
                         break;
@@ -144,18 +151,18 @@ public class Dungeon {
                     case "f" :
                         if (currentRoom.roomMonsters.size() > 0) {
 
-                            int monsterSelection = getCombatantChoice();
-                            while (!currentRoom.roomMonsters.get(monsterSelection-1).isDead) {
-                                Combat.round(activeCharacter, currentRoom.roomMonsters.get(monsterSelection - 1));
+                            String monsterSelection = getCombatantChoice();
+                            while (!currentRoom.roomMonsters.get(Integer.parseInt(monsterSelection)-1).isDead) {
+                                Combat.round(activeCharacter, currentRoom.roomMonsters.get((Integer.parseInt(monsterSelection)-1)));
 
                                 if (Combat.isFled) {
                                     break;
                                 }
                             }
 
-                            if (currentRoom.roomMonsters.get(monsterSelection-1).isDead) {
-                                activeCharacter.gainExperience(currentRoom.roomMonsters.get(monsterSelection-1));
-                                currentRoom.roomMonsters.remove(monsterSelection-1);
+                            if (currentRoom.roomMonsters.get((Integer.parseInt(monsterSelection)-1)).isDead) {
+                                activeCharacter.gainExperience(currentRoom.roomMonsters.get((Integer.parseInt(monsterSelection)-1)));
+                                currentRoom.roomMonsters.remove((Integer.parseInt(monsterSelection)-1));
                             }
 
                         }
@@ -179,19 +186,19 @@ public class Dungeon {
             System.out.println((i + 1) + ") " + currentRoom.roomItems.get(i));
         }
         System.out.println("0) Take All");
-        int selectedItem = scanner.nextInt() - 1;
+        String selectedItem = scanner.nextLine();
 
-        if (selectedItem != -1) {
-            if (currentRoom.roomItems.get(selectedItem) instanceof Chest) {
-                ((Chest) currentRoom.roomItems.get(selectedItem)).openChest();
+        if (Integer.parseInt(selectedItem) != 0) {
+            if (currentRoom.roomItems.get(Integer.parseInt(selectedItem) - 1) instanceof Chest) {
+                ((Chest) currentRoom.roomItems.get(Integer.parseInt(selectedItem) - 1)).openChest();
 
                 if (currentRoom.roomItems.size() <= 0) {
                     currentRoom.activeItem = false;
                 }
             } else {
-                System.out.println(activeCharacter.name + " takes " + currentRoom.roomItems.get(selectedItem));
-                activeCharacter.addEquipment(currentRoom.roomItems.get(selectedItem));
-                currentRoom.roomItems.remove(selectedItem);
+                System.out.println(activeCharacter.name + " takes " + currentRoom.roomItems.get(Integer.parseInt(selectedItem) - 1));
+                activeCharacter.addEquipment(currentRoom.roomItems.get(Integer.parseInt(selectedItem) - 1));
+                currentRoom.roomItems.remove(Integer.parseInt(selectedItem) - 1);
             }
 
         } else {

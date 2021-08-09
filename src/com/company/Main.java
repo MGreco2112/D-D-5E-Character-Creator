@@ -66,7 +66,6 @@ public class Main {
 
         } while (decision.toLowerCase(Locale.ROOT).equals("y"));
 
-        //Add ability to set hashMap keys as Ability Score Names and set values as chosen by the player
 
         while (selectedStats.size() < 6) {
             System.out.println("Which Stat Value would you like to assign to which Stat?");
@@ -96,10 +95,10 @@ public class Main {
             abilities[Integer.parseInt(abilitySel) - 1] = null;
 
         }
+        System.out.println("These are your character's ability scores:");
 
-        //TODO fix this so the first part of the println is outside the loop, then everything after newline character
         for (String abilityScore : selectedStats.keySet()) {
-            System.out.println("These are your character's ability scores:\n" + abilityScore + ": " + selectedStats.get(abilityScore));
+            System.out.println(abilityScore + ": " + selectedStats.get(abilityScore));
         }
 
         System.out.println("Enter starting Hit Point total: ");
