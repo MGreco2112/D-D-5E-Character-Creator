@@ -67,11 +67,11 @@ public class Dungeon {
 
             monsterSelection = scanner.nextLine();
 
-            if (Integer.parseInt(monsterSelection) < (currentRoom.roomMonsters.size()) -1) {
+            if (Integer.parseInt(monsterSelection) <= 0 && Integer.parseInt(monsterSelection) > (currentRoom.roomMonsters.size()) -1) {
                 System.out.println("Invalid entry, please try again");
             }
 
-        } while (Integer.parseInt(monsterSelection) < (currentRoom.roomMonsters.size()) -1);
+        } while (Integer.parseInt(monsterSelection) <= 0 && Integer.parseInt(monsterSelection) > (currentRoom.roomMonsters.size()) -1);
 
         return monsterSelection;
     }
@@ -138,7 +138,7 @@ public class Dungeon {
 
                             doorSelection = scanner.nextLine();
 
-                        } while (Integer.parseInt(doorSelection) > 0 && Integer.parseInt(doorSelection) <= currentRoom.doors.size());
+                        } while (Integer.parseInt(doorSelection) < 0 && Integer.parseInt(doorSelection) >= currentRoom.doors.size());
 
                         if (currentRoom.doors.get(Integer.parseInt(doorSelection) - 1).isEntrance) {
                             currentRoom.doors.get(Integer.parseInt(doorSelection) - 1).exitDungeon();
@@ -182,11 +182,16 @@ public class Dungeon {
         System.out.println(activeCharacter.name + " succeeds in finding items!");
         System.out.println("Enter the number next to the item to pick it up");
 
-        for (int i = 0; i < currentRoom.roomItems.size(); i++) {
-            System.out.println((i + 1) + ") " + currentRoom.roomItems.get(i));
-        }
-        System.out.println("0) Take All");
-        String selectedItem = scanner.nextLine();
+        String selectedItem;
+
+        do {
+
+            for (int i = 0; i < currentRoom.roomItems.size(); i++) {
+                System.out.println((i + 1) + ") " + currentRoom.roomItems.get(i));
+            }
+            System.out.println("0) Take All");
+            selectedItem = scanner.nextLine();
+        } while (Integer.parseInt(selectedItem) <= 0 && Integer.parseInt(selectedItem) > currentRoom.roomItems.size());
 
         if (Integer.parseInt(selectedItem) != 0) {
             if (currentRoom.roomItems.get(Integer.parseInt(selectedItem) - 1) instanceof Chest) {
