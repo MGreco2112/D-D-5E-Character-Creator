@@ -113,6 +113,47 @@ public class Main {
 
         String speed = scanner.nextLine();
 
+        System.out.println("Is your character a spellcaster?\n(y)es\n(n)o");
+
+        String casterChoice = scanner.nextLine();
+        boolean isArcane = false;
+        boolean isDivine = false;
+        boolean isThief = false;
+
+        if (casterChoice.toLowerCase(Locale.ROOT).equals("y")) {
+            String choice = "";
+
+            do {
+                System.out.println("Is your character an Arcane caster or a Divine caster?\n1) Arcane\n2) Divine");
+
+                choice = scanner.nextLine();
+            } while (!choice.equals("1") || !choice.equals("2"));
+
+            switch (Integer.parseInt(choice)) {
+                case 1 :
+                    System.out.println("Your character is an Arcane Caster");
+                    isArcane = true;
+                    break;
+
+                case 2 :
+                    System.out.println("Your character is a Divine Caster");
+                    isDivine = true;
+                    break;
+
+                default :
+                    System.out.println("Invalid entry");
+            }
+
+            System.out.println("Is your character a Thief?\n(y)es\n(n)o");
+
+            String thiefChoice = scanner.nextLine();
+
+            if (thiefChoice.toLowerCase(Locale.ROOT).equals("y")) {
+
+            }
+
+        }
+
         System.out.println("Enter your Alignment: ");
 
         String alignment = scanner.nextLine();
@@ -125,7 +166,7 @@ public class Main {
                 selectedStats.get("Intelligence")
         , selectedStats.get("Wisdom"), selectedStats.get("Charisma"), Integer.parseInt(hitPoints),
                 Integer.parseInt(armorClass), Integer.parseInt(speed), 2,
-                0, true, false, true,
+                0, isArcane, isDivine, true,
                 alignment);
 
 
