@@ -481,7 +481,8 @@ public class PlayerCharacter {
     }
 
     public String toString() {
-        return name + ":\n" + classLevel + " Level: " + level + "\nCurrent Hit Points:" + hitPoints + "\nAbility " +
+        return name + ":\n" + classLevel + " Level: " + level + "\nCurrent Hit Points: " + hitPoints + "\nMax Hit " +
+                "Points: " + maxHitPoints + "\nAbility " +
                 "Scores: " + stats +
                 "\nEquipment: " + gear +
                 "\nSpells: " + spells;
