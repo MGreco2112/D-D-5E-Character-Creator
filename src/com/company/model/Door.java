@@ -47,6 +47,9 @@ public class Door {
                 }
                 System.out.println(dungeon.activeCharacter.name + " enters the next Room");
                 System.out.println(dungeon.currentRoom.description);
+                if (dungeon.currentRoom.activeMonster) {
+                    System.out.println("There are Monsters nearby");
+                }
             } else if (!isTrapped) {
                 System.out.println("The door is Locked!");
             } else if (!isLocked) {
