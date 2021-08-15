@@ -55,4 +55,8 @@ public class Monster {
         }
     }
 
+    public String toString() {
+        return name + " " + hitPoints + " " + weapon;
+    }
+
 }

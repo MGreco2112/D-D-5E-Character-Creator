@@ -1,6 +1,6 @@
 package com.company.model;
 
-import com.company.model.Die;
+
 
 public class Spell {
     public String name;

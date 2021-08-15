@@ -38,12 +38,12 @@ public class Chest extends Item{
 
         System.out.println("0) Take All");
 
-        int choice = scanner.nextInt() - 1;
+        String choice = scanner.nextLine();
 
-        if (choice != -1) {
-            dungeonRoom.dungeon.activeCharacter.addEquipment(contents.get(choice));
-            System.out.println(dungeonRoom.dungeon.activeCharacter.name + " takes " + contents.get(choice).name);
-            contents.remove(choice);
+        if (Integer.parseInt(choice) - 1 != -1) {
+            dungeonRoom.dungeon.activeCharacter.addEquipment(contents.get(Integer.parseInt(choice) - 1));
+            System.out.println(dungeonRoom.dungeon.activeCharacter.name + " takes " + contents.get(Integer.parseInt(choice) - 1).name);
+            contents.remove(Integer.parseInt(choice) - 1);
         } else {
             for (Item item : contents) {
                 dungeonRoom.dungeon.activeCharacter.addEquipment(item);

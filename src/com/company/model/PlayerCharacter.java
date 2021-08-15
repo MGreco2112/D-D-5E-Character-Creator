@@ -238,9 +238,9 @@ public class PlayerCharacter {
             }
         }
 
-        int weaponSelection = scanner.nextInt() - 1;
+        String weaponSelection = scanner.nextLine();
 
-        readyWeapon((Weapon) gear.get(weaponSelection));
+        readyWeapon((Weapon) gear.get(Integer.parseInt(weaponSelection) - 1));
 
     }
 

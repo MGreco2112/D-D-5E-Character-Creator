@@ -91,6 +91,11 @@ public class Dungeon {
 
                     case "l":
                         System.out.println(currentRoom.description);
+
+                        if (currentRoom.activeMonster) {
+                            System.out.println("There are Monters nearby!");
+                        }
+
                         break;
 
                     case "s":
