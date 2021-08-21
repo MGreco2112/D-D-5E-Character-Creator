@@ -9,6 +9,9 @@ import java.util.*;
 public class Main {
 
     // TODO add classes Trap, Puzzle, Created Items, Created Monsters, Created Spells
+
+    //TODO Puzzle Class: add an interactive event to a room, demo should be a room that allows the character
+    // to regain health x number of times
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Die dPercent = new Die(100, 100);
