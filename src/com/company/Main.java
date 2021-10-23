@@ -2,8 +2,10 @@ package com.company;
 
 
 import com.company.model.*;
+import com.company.utilities.*;
 
 
+import javax.swing.text.Utilities;
 import java.util.*;
 
 public class Main {
@@ -13,6 +15,10 @@ public class Main {
     //TODO Puzzle Class: add an interactive event to a room, demo should be a room that allows the character
     // to regain health x number of times
     public static void main(String[] args) {
+//        String testGetString = Console.getString("This requires any input", true);
+//        int testGetInt = Console.getInt("This requires an input from 0 to Max Int", 0, Integer.MAX_VALUE);
+//        String testGetString2 = Console.getString("This does not require input", false);
+
         Scanner scanner = new Scanner(System.in);
         Die dPercent = new Die(100, 100);
         Die d20 = new Die(20, 20);

@@ -19,8 +19,9 @@ public class Console {
                 System.out.println("Invalid entry, try again\n");
 
                 output = min - 1;
+
             }
-        } while (output >= min || output <= max);
+        } while (output <= min && output >= max);
 
         return output;
     }
